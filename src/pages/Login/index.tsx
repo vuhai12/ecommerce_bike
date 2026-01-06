@@ -90,7 +90,10 @@ const Login = () => {
             </div>
             <div className="w-full h-[1px] bg-gray-300 absolute top-1/2 -translate-y-1/2"></div>
           </div>
-          <button className="py-[10px] border-[1px] text-[#14c9c9] border-[#14c9c9]  rounded-[10px] ">
+          <button
+            type="button"
+            className="py-[10px] border-[1px] text-[#14c9c9] border-[#14c9c9]  rounded-[10px] "
+          >
             Login with Google
           </button>
           <p className="text-center text-[12px]">

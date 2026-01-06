@@ -103,7 +103,7 @@ const Register = () => {
           <p className="text-center text-[12px]">
             Did you have an account yet?{" "}
             <span className="text-[#14c9c9] font-semibold">
-              <Link to="/register">Login Now</Link>
+              <Link to="/login">Login Now</Link>
             </span>
           </p>
         </form>
