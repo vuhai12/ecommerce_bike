@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
+    "@hookform/resolvers": "^5.2.2",
     "classnames": "^2.5.1",
     "date-fns": "^4.1.0",
     "lucide-react": "^0.546.0",
@@ -19,11 +20,13 @@
     "react": "^18.2.0",
     "react-datepicker": "^8.8.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.70.0",
     "react-icons": "^5.5.0",
     "react-range": "^1.10.0",
     "react-router-dom": "^7.9.5",
     "recharts": "^3.3.0",
-    "styled-components": "^6.1.19"
+    "styled-components": "^6.1.19",
+    "zod": "^4.3.5"
   },
   "devDependencies": {
     "@types/classnames": "^2.3.0",
