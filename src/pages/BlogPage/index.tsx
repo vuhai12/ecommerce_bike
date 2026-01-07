@@ -93,7 +93,7 @@ const BlogPage = () => {
                   <textarea className="h-[200px] bg-gray-100 py-[10px] px-[20px] border-[1px] border-gray-300 rounded-[10px]"></textarea>
                 </div>
                 <button
-                  type="submit"
+                  type="button"
                   className="py-[10px] px-[20px] w-fit bg-[#14c9c9] rounded-[10px] text-white font-semibold"
                 >
                   Submit
