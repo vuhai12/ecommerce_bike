@@ -18,12 +18,12 @@ const AddEditAddress = ({
   mode: string;
 }) => {
   return (
-    <div className="fixed inset-0 z-[999]">
+    <div className="fixed inset-0 z-[999] flex justify-center items-center">
       <div
         className="absolute inset-0 bg-black bg-opacity-45"
         onClick={() => setIsShowAddEditAddress(false)}
       ></div>
-      <form className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-[30px] rounded-[10px] bg-white md:w-[500px] w-full flex flex-col gap-[20px]">
+      <form className="p-[30px] z-10 rounded-[10px] bg-white mx-[10px] flex flex-col gap-[20px]">
         <div className="flex justify-between">
           <h3 className="text-[20px] font-semibold">
             {mode == "add" ? "Add Address" : "Update Address"}
@@ -44,7 +44,7 @@ const AddEditAddress = ({
               })
             }
             value={edittingData ? edittingData?.name : ""}
-            className="p-[15px] bg-white border-[1px] border-gray-400 rounded-[10px]"
+            className="p-[15px] bg-white border-[1px] border-gray-400 w-full rounded-[10px]"
             placeholder="Fill Your Ward"
           />
         </div>
@@ -58,14 +58,14 @@ const AddEditAddress = ({
               })
             }
             value={edittingData ? edittingData?.address : ""}
-            className="p-[15px] bg-white border-[1px] border-gray-400 rounded-[10px]"
+            className="p-[15px] bg-white border-[1px] border-gray-400 rounded-[10px] w-full"
             placeholder="Fill Your Street"
           />
         </div>
 
         <button
           onClick={mode == "add" ? handleAdd : handleUpdate}
-          className="p-[15px] text-[18px] font-semibold text-white bg-[#14c9c9] rounded-[10px]"
+          className="p-[15px] w-full text-[18px] font-semibold text-white bg-[#14c9c9] rounded-[10px]"
         >
           Submit
         </button>
