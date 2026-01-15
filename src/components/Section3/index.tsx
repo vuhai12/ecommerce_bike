@@ -272,6 +272,7 @@ const Section3 = () => {
           {tabDatas.map((tabData, _) => {
             return (
               <div
+                key={tabData.id}
                 className={classNames(
                   "flex-1 cursor-pointer text-center px-[14px] py-[10px]  rounded-[11px]",
                   activeTab == tabData.id && "bg-[#14C9C9] text-white"
@@ -286,14 +287,16 @@ const Section3 = () => {
         <div className="flex gap-[20px] mt-[20px] lg:flex-row flex-col">
           {dataCategories.map((dataCategory, _) => {
             return (
-              <label className="flex flex-1 cursor-pointer gap-[6px] p-[8px] bg-[#F9FAFB] rounded-[12px] flex-wrap">
+              <label
+                key={dataCategory.id}
+                className="flex flex-1 cursor-pointer gap-[6px] p-[8px] bg-[#F9FAFB] rounded-[12px] flex-wrap"
+              >
                 <Checkbox
                   listChecked={listChecked}
                   setListChecked={setListChecked}
                   value={dataCategory.id}
                   label={dataCategory.value}
                 />
-                {/* {dataCategory.value} */}
               </label>
             );
           })}
@@ -302,6 +305,7 @@ const Section3 = () => {
           {products.map((product: any, _: any) => {
             return (
               <ProductItem
+                key={product.id}
                 id={product.id}
                 title={product.title}
                 price={product.price}

@@ -23,13 +23,13 @@ const dataMenus = [
     icon: Bike,
   },
   {
-    id: 4,
+    id: 3,
     name: "Blogs",
     path: "/blog-list",
     icon: Pen,
   },
   {
-    id: 5,
+    id: 4,
     name: "About us",
     path: "/about-us",
     icon: RiTeamLine,
@@ -72,7 +72,11 @@ const HambugerMenuProduct = ({
             {dataMenus.map((item, _) => {
               const Icon = item.icon;
               return (
-                <NavLink to={item.path} className={classNames("")}>
+                <NavLink
+                  key={item.id}
+                  to={item.path}
+                  className={classNames("")}
+                >
                   {({ isActive }) => {
                     return (
                       <div

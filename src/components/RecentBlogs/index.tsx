@@ -47,6 +47,7 @@ const RecentBlogs = () => {
         {dataBlogs.map((item, _) => {
           return (
             <div
+              key={item.id}
               className="flex gap-[10px] cursor-pointer"
               onClick={() => navigate(`/blog/${item.id}`)}
             >

@@ -67,6 +67,7 @@ const Section7 = () => {
         {dataBlogs.map((item, _) => {
           return (
             <BlogItem
+              key={item.id}
               id={item.id}
               title={item.title}
               des={item.des}

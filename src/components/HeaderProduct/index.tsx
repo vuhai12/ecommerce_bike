@@ -14,17 +14,17 @@ const dataMenus = [
     path: "/",
   },
   {
-    id: 1,
+    id: 2,
     name: "Ebikes",
     path: "/product-list",
   },
   {
-    id: 4,
+    id: 3,
     name: "Blog",
     path: "/blog-list",
   },
   {
-    id: 5,
+    id: 4,
     name: "About us",
     path: "/about-us",
   },
@@ -75,6 +75,7 @@ const HeaderProduct = () => {
         {dataMenus.map((item, _) => {
           return (
             <NavLink
+              key={item.id}
               className={({ isActive }) =>
                 isActive ? "font-semibold text-[#14c9c9]" : "text-black"
               }

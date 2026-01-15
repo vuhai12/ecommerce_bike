@@ -19,7 +19,10 @@ const CheckoutSteps = () => {
       {dataCheckoutSteps.map((item, _) => {
         const Icon = item.icon;
         return (
-          <div className="flex-col gap-[12px] flex justify-center items-center">
+          <div
+            key={item.id}
+            className="flex-col gap-[12px] flex justify-center items-center"
+          >
             <div
               className={classNames(
                 `w-[48px]  border-[1px] border-[#EAECF0] h-[48px] rounded-[50%] flex items-center justify-center`,

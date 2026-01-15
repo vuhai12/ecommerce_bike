@@ -84,7 +84,7 @@ const OrderSummary = () => {
         <div className="flex flex-col">
           <ul className="flex justify-between list-disc text-[10px] text-[#98A2B3]">
             {dataService.map((item) => {
-              return <li>{item.label}</li>;
+              return <li key={item.id}>{item.label}</li>;
             })}
           </ul>
           <div className="flex gap-[8px] items-start mt-[16px]">
@@ -98,7 +98,7 @@ const OrderSummary = () => {
           </div>
           <div className="flex justify-between mt-[24px] gap-[8px] flex-wrap">
             {dataBrand.map((item) => {
-              return <img src={item.image} />;
+              return <img key={item.id} src={item.image} />;
             })}
           </div>
         </div>

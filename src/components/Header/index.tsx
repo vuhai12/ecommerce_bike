@@ -49,11 +49,6 @@ const Header = () => {
     setLanguage(language);
   };
 
-  // const [isShowImputSearch, setIsShowImputSearch] = useState(false);
-
-  // const handleShowSearchInput = () => {
-  //   setIsShowImputSearch(!isShowImputSearch);
-  // };
   return (
     <div className="w-full">
       <p
@@ -79,37 +74,19 @@ const Header = () => {
         <ul className="lg:flex gap-[40px] hidden">
           {dataMenu.map((item) => {
             return (
-              <li>
-                <NavLink
-                  className={({ isActive }) =>
-                    isActive ? "text-[#14c9c9] font-semibold" : "text-gray-400"
-                  }
-                  to={item.path}
-                >
-                  {item.name}
-                </NavLink>
-              </li>
+              <NavLink
+                key={item.id}
+                className={({ isActive }) =>
+                  isActive ? "text-[#14c9c9] font-semibold" : "text-gray-400"
+                }
+                to={item.path}
+              >
+                {item.name}
+              </NavLink>
             );
           })}
         </ul>
         <div className="lg:flex gap-[24px] hidden  relative">
-          {/* {isShowImputSearch && (
-            <div className="absolute right-0 top-[100%] flex items-center z-[99]">
-              <input
-                placeholder="search"
-                className="py-[10px] w-[387px] pr-[14px] pl-[44px] border-[#EAECF0] border-[1px] rounded-[12px]"
-              />
-              <img
-                src={iconSearch}
-                className="absolute left-[14px] w-[20px] h-[20px]"
-              />
-            </div>
-          )} */}
-
-          {/* <MagnifyingGlassIcon
-            className="w-6 h-6 cursor-pointer"
-            onClick={handleShowSearchInput}
-          /> */}
           <Link to={"/login"}>
             <UserIcon className="w-6 h-6 cursor-pointer" />
           </Link>
@@ -125,6 +102,7 @@ const Header = () => {
               {languages.map((item) => {
                 return (
                   <div
+                    key={item.id}
                     className={classNames(
                       "flex gap-[8px] px-[30px] py-[10px] cursor-pointer",
                       language == item.language ? "underline " : ""

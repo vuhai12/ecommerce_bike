@@ -31,9 +31,6 @@ const Section2 = () => {
             eBike for you. Get custom recommendations based on your height and
             riding needs.
           </p>
-          {/* <button className="bg-[#14C9C9] p-[10px] text-white font-medium rounded-[10px]">
-            Get Your Recommendations
-          </button> */}
           <img className="mt-[50px]" src={imgBike} />
         </div>
       </div>

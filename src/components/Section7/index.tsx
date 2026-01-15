@@ -69,6 +69,7 @@ const Section7 = () => {
         {dataSection7.map((item, _) => {
           return (
             <div
+              key={item.id}
               className="flex flex-col gap-[8px] cursor-pointer"
               onClick={() => handleClickChangeTab(item.id)}
             >

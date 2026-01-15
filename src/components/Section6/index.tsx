@@ -64,6 +64,7 @@ const Section6 = () => {
           {dataSection6.map((item: any, _: any) => {
             return (
               <BlogItem
+                key={item.id}
                 id={item.id}
                 title={item.title}
                 image={item.image}

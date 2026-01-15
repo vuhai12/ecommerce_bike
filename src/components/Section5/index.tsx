@@ -84,7 +84,10 @@ const Section5 = () => {
       <div className="flex gap-[64px] lg:flex-row flex-col">
         {dataSection5.map((item, _) => {
           return (
-            <div className="flex flex-col gap-[20px] justify-center items-center">
+            <div
+              key={item.id}
+              className="flex flex-col gap-[20px] justify-center items-center"
+            >
               <h1 className="text-[48px] text-[#14C9C9] font-semibold">
                 {item.value}
               </h1>
@@ -121,30 +124,10 @@ const Section5 = () => {
                 Book ride now
               </button>
             </div>
-            {/* <div className="flex-1">
-                    <img src={imageDateTime} className="w-full h-full object-cover" />
-                  </div> */}
             <div className="inset-0 bg-black/50 absolute z-[-1]"></div>
           </Container>
         </div>
       </Wrapper>
-      {/* <div className="flex gap-[64px]">
-        {dataSection5.map((item, _) => {
-          return (
-            <div className="flex flex-col gap-[20px] justify-center items-center">
-              <h1 className="text-[48px] text-[#14C9C9] font-semibold">
-                {item.value}
-              </h1>
-              <p className="text-[24px] text-[#23272F] font-semibold">
-                {item.title}
-              </p>
-              <p className="text-[16px] text-[#667085] text-center">
-                {item.des}
-              </p>
-            </div>
-          );
-        })}
-      </div> */}
     </>
   );
 };

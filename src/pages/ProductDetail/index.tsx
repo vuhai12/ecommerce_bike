@@ -212,6 +212,7 @@ const ProductDetail = () => {
             {thumbnailImagesData.map((item, _) => {
               return (
                 <RadioPickColor
+                  key={item.id}
                   image={item.imageColor}
                   price={item.price}
                   colorPick={item.color}
@@ -246,7 +247,10 @@ const ProductDetail = () => {
           <div className="flex justify-between w-full flex-wrap gap-[10px]">
             {featureHighlights.map((item, _) => {
               return (
-                <div className="flex flex-col text-center text-[#667085] text-[14px] gap-[12px] items-center justify-center">
+                <div
+                  key={item.id}
+                  className="flex flex-col text-center text-[#667085] text-[14px] gap-[12px] items-center justify-center"
+                >
                   <img src={item.icon} className="w-[40px] h-[40px]" />
                   <p>{item.name}</p>
                 </div>

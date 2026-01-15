@@ -52,6 +52,7 @@ const BlogList = () => {
             {dataBlogs.map((item) => {
               return (
                 <Link
+                  key={item.id}
                   to={`/blog/${item.id}`}
                   className="flex flex-col gap-[20px] cursor-pointer"
                 >

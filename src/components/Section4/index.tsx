@@ -31,7 +31,6 @@ const Section4 = () => {
             riders and how their ebikes are used in unexpected ways to bring
             them closer to what makes them feel most alive.
           </p>
-          {/* <p className="underline text-[#14C9C9]">Watch more</p> */}
         </div>
         <div className="lg:w-1/2 w-full">
           <img src={image1} className="w-full h-full object-cover" />
@@ -54,7 +53,6 @@ const Section4 = () => {
             ELECTROBIKE isn't the perfect fit, we'll pay for return shipping and
             issue a full refund.
           </p>
-          {/* <p className="underline text-[#14C9C9]">21 Day Trial Details</p> */}
         </div>
       </div>
     </div>

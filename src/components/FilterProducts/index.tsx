@@ -17,9 +17,7 @@ const FilterProducts = ({
   setListChecked: (val: number[]) => void;
 }) => {
   const [isOpen, setIsOpen] = useState<number[]>([]);
-
   const allFilterOptions = listOptionfilters.flatMap((group) => group.options);
-
   const selectedOption = allFilterOptions.filter((option) =>
     listChecked.includes(option.id)
   );

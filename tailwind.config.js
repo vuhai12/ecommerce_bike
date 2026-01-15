@@ -26,7 +26,6 @@ export default {
         16: "16px",
         14.86: "14.86px",
       },
-
       screens: {
         sm: "640px",
         md: "768px",
@@ -47,7 +46,7 @@ export default {
       },
       fontFamily: {
         inter: ["Inter", "sans-serif"],
-        noto: ['"Noto Serif"', "serif"], // ví dụ thêm font khác
+        noto: ['"Noto Serif"', "serif"],
       },
     },
   },

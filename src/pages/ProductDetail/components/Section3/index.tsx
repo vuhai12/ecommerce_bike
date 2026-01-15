@@ -13,19 +13,19 @@ const dataSection3 = [
     label: "Top Speed",
   },
   {
-    id: 1,
+    id: 2,
     icon: icon2,
     value: "4’’ Fat Tires",
     label: "Tires",
   },
   {
-    id: 1,
+    id: 3,
     icon: icon3,
     value: "750W",
     label: "Motor Power",
   },
   {
-    id: 1,
+    id: 4,
     icon: icon4,
     value: "Up to 60 Miles",
     label: "Range",
@@ -49,7 +49,7 @@ const Section3 = () => {
     <div className="grid md:grid-cols-3 grid-cols-1 md:justify-items-start justify-items-center text-center gap-y-[48px] p-[50px] bg-[#23272F]">
       {dataSection3.map((item, _) => {
         return (
-          <div className="flex gap-[20px] items-center">
+          <div key={item.id} className="flex gap-[20px] items-center">
             <img src={item.icon} />
             <div className="flex flex-col gap-[4px] flex-1">
               <h2 className="text-[30px] text-[#E8FFFB] font-semibold">

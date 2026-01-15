@@ -7,6 +7,9 @@ import image5 from "@assets/ProductDetail/Section6/image5.svg";
 import ProductItem from "@components/Ui/ProductItem";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
+const GAP = 17;
+const ITEMS_PER_VIEW = 3;
+
 const dataSection6 = [
   {
     id: 1,
@@ -47,18 +50,10 @@ const dataSection6 = [
 
 const Recommendation = () => {
   const [current, setCurrent] = useState(0);
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const handlePreNext = (flag: string) => {
-    if (flag == "next") {
-      setCurrent(
-        (pre) => (pre - 1 + dataSection6.length) % dataSection6.length
-      );
-    }
+  const [isMdUp, setIsMdUp] = useState(false);
+  const [containerWidth, setContainerWidth] = useState(0);
 
-    if (flag == "pre") {
-      setCurrent((pre) => (pre + 1) % dataSection6.length);
-    }
-  };
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (dataSection6.length === 0) return;
@@ -69,10 +64,6 @@ const Recommendation = () => {
       clearInterval(intervalId);
     };
   }, []);
-
-  const GAP = 17;
-
-  const [containerWidth, setContainerWidth] = useState(0);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -87,14 +78,6 @@ const Recommendation = () => {
     return () => observer.disconnect();
   }, []);
 
-  const ITEMS_PER_VIEW = 3;
-
-  const itemWidth =
-    containerWidth > 0
-      ? (containerWidth - GAP * (ITEMS_PER_VIEW - 1)) / ITEMS_PER_VIEW
-      : 0;
-
-  const [isMdUp, setIsMdUp] = useState(false);
   useEffect(() => {
     const mediaQuery = window.matchMedia("(min-width: 768px)");
 
@@ -108,6 +91,11 @@ const Recommendation = () => {
     return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
 
+  const itemWidth =
+    containerWidth > 0
+      ? (containerWidth - GAP * (ITEMS_PER_VIEW - 1)) / ITEMS_PER_VIEW
+      : 0;
+
   const maxWidth =
     itemWidth * dataSection6.length + GAP * (dataSection6.length - 1);
 
@@ -117,6 +105,17 @@ const Recommendation = () => {
   const sliderWidth = isMdUp ? maxWidth : maxWidthMd;
 
   const sliderWidthItem = isMdUp ? itemWidth : containerWidth;
+  const handlePreNext = (flag: string) => {
+    if (flag == "next") {
+      setCurrent(
+        (pre) => (pre - 1 + dataSection6.length) % dataSection6.length
+      );
+    }
+
+    if (flag == "pre") {
+      setCurrent((pre) => (pre + 1) % dataSection6.length);
+    }
+  };
 
   return (
     <div className="relative flex flex-col gap-[20px] ">
@@ -135,7 +134,10 @@ const Recommendation = () => {
           >
             {dataSection6.map((item, _) => {
               return (
-                <div style={{ width: `${sliderWidthItem}px`, flexShrink: 0 }}>
+                <div
+                  key={item.id}
+                  style={{ width: `${sliderWidthItem}px`, flexShrink: 0 }}
+                >
                   <ProductItem
                     id={item.id}
                     title={item.title}
@@ -149,7 +151,6 @@ const Recommendation = () => {
             })}
           </div>
         )}
-
         <div
           onClick={() => handlePreNext("pre")}
           className="absolute  bg-white left-0  top-1/2 -translate-x-1/2 -translate-y-1/2 w-[36px] h-[36px] rounded-[50%] border-[1px] border-[#EAECF0] flex items-center justify-center"
