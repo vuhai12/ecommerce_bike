@@ -3,7 +3,6 @@ import { FaStar } from "react-icons/fa";
 import classNames from "classnames";
 import { Link, useNavigate } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
-import iconArraw from "@assets/Section3/icon-arrow-up-right.svg";
 import { ArrowUpRight } from "lucide-react";
 
 const ProductItem = ({
