@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import imgBike from "@assets/Section2/image-bike.svg";
 import bgImage from "@assets/Section2/bg-image.svg";
+import { t } from "i18next";
 
 const Section2 = () => {
   return (
@@ -17,9 +18,10 @@ const Section2 = () => {
           transition={{ duration: 0.8 }}
           className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-[#23272F] mb-6 leading-snug"
         >
-          Find your <span className="text-[#14C9C9]">perfect</span> Ebike in
-          less than
-          <span className="text-[#14C9C9]"> 3 minutes</span>
+          {t("HeadLine.title.Findyour")}{" "}
+          <span className="text-[#14C9C9]">{t("HeadLine.title.perfect")}</span>{" "}
+          {t("HeadLine.title.Ebikeinlessthan")}{" "}
+          <span className="text-[#14C9C9]">{t("HeadLine.title.3minutes")}</span>
         </motion.h1>
 
         {/* Description */}
@@ -30,9 +32,7 @@ const Section2 = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-sm sm:text-base text-[#667085] max-w-[700px] mb-12"
         >
-          Answer a few quick questions and we'll instantly recommend the best
-          eBike for you. Get custom recommendations based on your height and
-          riding needs.
+          {t("HeadLine.des")}
         </motion.p>
 
         {/* Image with floating animation */}

@@ -117,9 +117,7 @@ const Header = () => {
         className="py-[10px] flex bg-[#14C9C9] ml-[50%] -translate-x-[50%] gap-[8px] items-center justify-center"
       >
         <img src={iconBike} alt="bike" />
-        <p className="text-white">
-          EMotorad X2 Unisex Mountain Electric Cycle - $1999.99 ($300 OFF)
-        </p>
+        <p className="text-white">{t("banner.title")}</p>
       </div>
 
       {isToggle && <HambugerMenuProduct setIsToggle={setIsToggle} />}

@@ -1,32 +1,31 @@
 import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
+import { t } from "i18next";
 import { useEffect, useRef } from "react";
 
 const dataSection3 = [
   {
     id: 1,
     value: 5896,
-    title: "Customer Served",
-    lable:
-      "We offer emission-free local travel, Not only doing something good.",
+    title: "hightLight.CustomerServed.title",
+    lable: "hightLight.CustomerServed.des",
   },
   {
     id: 2,
     value: 1587,
-    title: "Reviews",
-    lable: "Simply book using our super app, choose your destination.",
+    title: "hightLight.Reviews.title",
+    lable: "hightLight.Reviews.des",
   },
   {
     id: 3,
     value: 21,
-    title: "Certifications",
-    lable: "Know your travel cost in advance then you can simply pay it.",
+    title: "hightLight.Certifications.title",
+    lable: "hightLight.Certifications.des",
   },
   {
     id: 4,
     value: 8956,
-    title: "Value Proposition",
-    lable:
-      "We offer emission-free local travel, Not only doing something good.",
+    title: "hightLight.ValueProposition.title",
+    lable: "hightLight.ValueProposition.des",
   },
 ];
 
@@ -76,11 +75,11 @@ const Section1 = () => {
             <Counter value={item.value} />
 
             <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-black">
-              {item.title}
+              {t(item.title)}
             </h3>
 
             <p className="text-sm sm:text-base text-[#667085] max-w-[280px]">
-              {item.lable}
+              {t(item.lable)}
             </p>
           </motion.div>
         ))}

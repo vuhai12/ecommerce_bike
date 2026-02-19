@@ -7,6 +7,46 @@
   },
   "banner": {
     "top": "Giảm giá cực sốc cho xe điện chất lượng cao!",
-    "buyNow": "Mua ngay"
+    "buyNow": "Mua ngay",
+    "title": "Xe đạp điện địa hình EMotorad X2 dành cho nam & nữ – $1999.99 (Giảm $300)",
+    "titleBanner": "Xe đạp điện Aventure.2",
+    "desBanner": "Sức mạnh từ những ước mơ lớn lao nhất"
+  },
+  "hightLight": {
+    "CustomerServed": {
+      "title": "Khách hàng đã phục vụ",
+      "des": "Chúng tôi cung cấp giải pháp di chuyển tại địa phương không khí thải, không chỉ đơn thuần là làm điều tốt."
+    },
+    "Reviews": {
+      "title": "Đánh giá",
+      "des": "Chỉ cần đặt qua ứng dụng tiện lợi của chúng tôi và chọn điểm đến của bạn."
+    },
+    "Certifications": {
+      "title": "Chứng nhận",
+      "des": "Biết trước chi phí chuyến đi để bạn có thể thanh toán một cách dễ dàng."
+    },
+    "ValueProposition": {
+      "title": "Giá trị mang lại",
+      "des": "Chúng tôi cung cấp giải pháp di chuyển tại địa phương không khí thải, không chỉ đơn thuần là làm điều tốt."
+    }
+  },
+  "HeadLine": {
+    "title": {
+      "Findyour": "Tìm chiếc",
+      "perfect": "Ebike hoàn hảo",
+      "Ebikeinlessthan": "của bạn chỉ trong",
+      "3minutes": "chưa đầy 3 phút"
+    },
+
+    "des": "Trả lời một vài câu hỏi nhanh và chúng tôi sẽ ngay lập tức đề xuất chiếc eBike phù hợp nhất cho bạn. Nhận gợi ý được cá nhân hóa dựa trên chiều cao và nhu cầu sử dụng của bạn."
+  },
+  "HeadingSection3": {
+    "title": "Một chiếc Ebike cho mọi loại người lái",
+    "Explore": "Khám phá",
+    "Bicycles": "Xe đạp",
+    "BestSeller": "Bán chạy nhất",
+    "New Arrival": "Sản phẩm mới",
+    "AddToCart": "Thêm vào giỏ hàng",
+    "ViewAll": "Xem tất cả"
   }
 }

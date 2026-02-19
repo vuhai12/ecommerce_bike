@@ -7,6 +7,45 @@
   },
   "banner": {
     "top": "Amazing discounts on top-quality Ebike!",
-    "buyNow": "Buy now"
+    "buyNow": "Buy Now",
+    "title": "EMotorad X2 Unisex Mountain Electric Cycle - $1999.99 ($300 OFF)",
+    "titleBanner": "Aventure.2 Ebike",
+    "desBanner": "The power of wildest dreams"
+  },
+  "hightLight": {
+    "CustomerServed": {
+      "title": "Customer Served",
+      "des": "We offer emission-free local travel, Not only doing something good."
+    },
+    "Reviews": {
+      "title": "Reviews",
+      "des": "Simply book using our super app, choose your destination."
+    },
+    "Certifications": {
+      "title": "Certifications",
+      "des": "Know your travel cost in advance then you can simply pay it."
+    },
+    "ValueProposition": {
+      "title": "Value Proposition",
+      "des": "We offer emission-free local travel, Not only doing something good."
+    }
+  },
+  "HeadLine": {
+    "title": {
+      "Findyour": "Find your",
+      "perfect": "perfect",
+      "Ebikeinlessthan": "Ebike in less than",
+      "3minutes": "3 minutes"
+    },
+    "des": "Answer a few quick questions and we'll instantly recommend the best eBike for you. Get custom recommendations based on your height and riding needs."
+  },
+  "HeadingSection3": {
+    "title": "An Ebike for Every Type of Rider",
+    "Explore": "Explore",
+    "Bicycles": "Bicycles",
+    "BestSeller": "Best Saleler",
+    "New Arrival": "New Arrival",
+    "AddToCart": "Add To Cart",
+    "ViewAll": "View All"
   }
 }

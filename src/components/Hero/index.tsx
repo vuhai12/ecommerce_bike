@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import bgImgae from "@assets/Hero/bg-image.svg";
 import iconArow from "@assets/Hero/icon-arrow-up-right.svg";
 import { Link } from "react-router-dom";
+import { t } from "i18next";
 
 const Hero = () => {
   const [contentWidth, setContentWidth] = useState(0);
@@ -38,7 +39,7 @@ const Hero = () => {
           transition={{ duration: 0.8 }}
           className="md:text-[50px] text-[20px] font-semibold"
         >
-          Aventure.2 Ebike
+          {t("banner.titleBanner")}
         </motion.h1>
 
         {/* Subtitle */}
@@ -48,7 +49,7 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-[18px]"
         >
-          The power of wildest dreams
+          {t("banner.desBanner")}
         </motion.p>
 
         {/* Button */}
@@ -61,7 +62,7 @@ const Hero = () => {
             whileTap={{ scale: 0.95 }}
             className="flex gap-[5px] bg-[#14c9c9] px-[20px] py-[10px] rounded-[10px] w-fit items-center"
           >
-            <span>Buy Now</span>
+            <span> {t("banner.buyNow")}</span>
             <motion.img
               src={iconArow}
               alt="arrow"
