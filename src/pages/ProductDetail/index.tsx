@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import iconCart from "@assets/ProductDetail/icon-cart.svg";
 import iconFlash from "@assets/ProductDetail/icon-flash.svg";
 import iconCup from "@assets/ProductDetail/icon-cup.svg";
@@ -26,6 +27,7 @@ import Section5 from "../ProductDetail/components/Section5";
 import Section7 from "./components/Section7";
 import Recommendation from "@components/Recommendation";
 import { useNavigate, useParams } from "react-router-dom";
+
 import image1 from "@assets/ProductList/Main/image1.svg";
 import image2 from "@assets/ProductList/Main/image2.svg";
 import image3 from "@assets/ProductList/Main/image3.svg";
@@ -35,94 +37,64 @@ import image6 from "@assets/ProductList/Main/image6.svg";
 import image7 from "@assets/ProductList/Main/image7.svg";
 import image8 from "@assets/ProductList/Main/image8.svg";
 
+/* ================= DATA ================= */
+
 const dataListProducts = [
   {
     id: 1,
     title: "EMotorad X2 Unisex Mountain Electric Cycle",
-    color: "green",
     price: "$310",
     image: image1,
-    rate: "3",
-    category: "Full Suspension",
-    tag: "Hot",
     des: "Unisex electric mountain bike with strong frame and powerful motor.",
   },
   {
     id: 2,
     title: "SHENGMILO MX05 Full Suspension Electric Mountain Bike",
-    color: "green",
     price: "$520",
     image: image2,
-    rate: "3",
-    category: "Folding",
-    tag: "Hot",
-    des: "SHENGMILO MX05 is a full suspension electric mountain bike designed for challenging terrain, offering strong power, stability, and a smooth riding experience.",
+    des: "Full suspension electric mountain bike designed for challenging terrain.",
   },
   {
     id: 3,
-    title: "K9 Carbon / Mid‑drive Fat Tire Electric MTB",
-    color: "green",
+    title: "K9 Carbon / Mid-drive Fat Tire Electric MTB",
     price: "$350",
     image: image3,
-    rate: "3",
-    category: "Comfort",
-    tag: "Hot",
-    des: "K9 Carbon is a mid-drive fat tire electric mountain bike with a lightweight carbon frame, built for power, control, and off-road performance.",
+    des: "Mid-drive fat tire electric mountain bike with lightweight carbon frame.",
   },
   {
     id: 4,
-    title: "VDL Mountain Electric Bike for Adults, Fat Tire Ebike",
-    color: "green",
+    title: "VDL Mountain Electric Bike for Adults",
     price: "$200",
     image: image4,
-    rate: "3",
-    category: "Folding",
-    tag: "Hot",
-    des: "VDL is a fat tire electric mountain bike for adults, designed for stable and powerful rides on all terrains.",
+    des: "Fat tire electric mountain bike for stable rides.",
   },
   {
     id: 5,
     title: "Viribus Electric Mountain Fat Tirebike 26",
-    color: "green",
     price: "$700",
     image: image5,
-    rate: "3",
-    category: "Full Suspension",
-    tag: "Hot",
-    des: "Viribus is a 26-inch electric mountain bike with fat tires for stable off-road riding.",
+    des: "26-inch electric mountain bike with fat tires.",
   },
   {
     id: 6,
     title: "Santa Cruz Bullit Matte Cider",
-    color: "green",
     price: "$320",
     image: image6,
-    rate: "3",
-    category: "Folding",
-    tag: "Hot",
-    des: "Santa Cruz Bullit is a high-performance electric mountain bike built for aggressive trails.",
+    des: "High-performance electric mountain bike.",
   },
   {
     id: 7,
     title: "Amflow PL Carbon Pro eMTB",
-    color: "green",
     price: "$310",
     image: image7,
-    rate: "3",
-    category: "Full Suspension",
-    tag: "Hot",
-    des: "Amflow PL Carbon Pro is a lightweight carbon eMTB built for fast, technical trails.",
+    des: "Lightweight carbon eMTB built for technical trails.",
   },
   {
     id: 8,
     title: "Specialized Turbo Levo Electric Mountain Bike",
-    color: "green",
     price: "$360",
     image: image8,
-    rate: "3",
-    category: "Hunting/Fishing",
-    tag: "Hot",
-    des: "Specialized Turbo Levo delivers smooth power and confident control on any trail.",
+    des: "Smooth power and confident control on any trail.",
   },
 ];
 
@@ -163,54 +135,81 @@ const thumbnailImagesData = [
   },
 ];
 
+/* ================= COMPONENT ================= */
+
 const ProductDetail = () => {
-  const [colorPicked, setColorPicked] = useState<string>("Warm Green");
-  const [imagePicked, setImagePiked] = useState(
+  const [colorPicked, setColorPicked] = useState("Warm Green");
+  const [imagePicked, setImagePicked] = useState(
     thumbnailImagesData[0].images[0].image,
   );
 
   const { id } = useParams();
-  const productItem = dataListProducts.find((item) => String(item.id) == id);
   const navigate = useNavigate();
+
+  const productItem = dataListProducts.find((item) => String(item.id) === id);
+
   useEffect(() => {
-    const dataFilter = thumbnailImagesData.filter(
-      (item) => item.color == colorPicked,
+    const found = thumbnailImagesData.find(
+      (item) => item.color === colorPicked,
     );
-    if (dataFilter.length > 0) {
-      setImagePiked(dataFilter[0].images[0].image);
-    }
+    if (found) setImagePicked(found.images[0].image);
   }, [colorPicked]);
+
   return (
     <ProductLayout>
-      <div className="flex lg:gap-[50px] lg:flex-row flex-col gap-[20px] container">
-        <div className="flex-1">
-          {thumbnailImagesData.map((item, _) => {
-            return (
-              <>
-                {colorPicked == item.color && (
-                  <ThumbnailImages
-                    listImage={item.images}
-                    imagePicked={imagePicked}
-                    setImagePiked={setImagePiked}
-                  />
-                )}
-              </>
-            );
-          })}
-        </div>
-        <div className="flex-1 flex flex-col gap-[20px]">
-          <h1 className="text-[40px] font-semibold text-black">
-            {productItem?.title}
-          </h1>
-          <p className="text-[16px] text-[#23272F]">{productItem?.des}</p>
-          <p className="text-[30px]">{productItem?.price}</p>
-          <p className="text-[16px]">
-            <span className="text-[#667085]">Colour: </span>
-            <span className="text-[#23272F] font-semibold">{colorPicked}</span>
-          </p>
-          <div className="flex gap-[16px] flex-wrap">
-            {thumbnailImagesData.map((item, _) => {
-              return (
+      <div className="container mx-auto px-4 sm:px-6 lg:px-0 py-12">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+          className="flex flex-col lg:flex-row gap-10"
+        >
+          {/* LEFT IMAGE */}
+          <motion.div
+            key={colorPicked}
+            initial={{ opacity: 0, x: -40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            className="w-full lg:w-1/2"
+          >
+            {thumbnailImagesData.map((item) =>
+              colorPicked === item.color ? (
+                <ThumbnailImages
+                  key={item.id}
+                  listImage={item.images}
+                  imagePicked={imagePicked}
+                  setImagePiked={setImagePicked}
+                />
+              ) : null,
+            )}
+          </motion.div>
+
+          {/* RIGHT INFO */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            className="w-full lg:w-1/2 flex flex-col gap-6"
+          >
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold">
+              {productItem?.title}
+            </h1>
+
+            <p className="text-sm sm:text-base text-[#23272F]">
+              {productItem?.des}
+            </p>
+
+            <p className="text-2xl sm:text-3xl font-semibold">
+              {productItem?.price}
+            </p>
+
+            <p>
+              <span className="text-gray-500">Colour: </span>
+              <span className="font-semibold">{colorPicked}</span>
+            </p>
+
+            <div className="flex gap-4 flex-wrap">
+              {thumbnailImagesData.map((item) => (
                 <RadioPickColor
                   key={item.id}
                   image={item.imageColor}
@@ -219,52 +218,55 @@ const ProductDetail = () => {
                   setColorPicked={setColorPicked}
                   colorPicked={colorPicked}
                 />
-              );
-            })}
-          </div>
+              ))}
+            </div>
 
-          <div className="flex gap-[16px] flex-wrap">
-            <button className="flex flex-1 justify-center gap-[8px] items-center px-[18px] py-[10px] rounded-[12px] font-semibold border-[#D0D5DD] border-[1px] text-[16px] text-black">
-              <img
-                src={iconCart}
-                alt="iconCart"
-                className="w-[20px] h-[20px]"
-              />
-              <p>Add to cart</p>
-            </button>
-            <button
-              onClick={() => navigate(`/cart`)}
-              className="flex flex-1 justify-center items-center gap-[8px] px-[18px] py-[10px] rounded-[12px] bg-[#14C9C9] text-[16px] font-semibold text-white"
-            >
-              <img
-                src={iconFlash}
-                alt="iconCart"
-                className="w-[20px] h-[20px]"
-              />
-              <p>Quick buy</p>
-            </button>
-          </div>
-          <div className="flex justify-between w-full flex-wrap gap-[10px]">
-            {featureHighlights.map((item, _) => {
-              return (
-                <div
+            <div className="flex flex-col sm:flex-row gap-4">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="flex justify-center gap-2 items-center px-5 py-3 rounded-xl border border-gray-300 font-semibold"
+              >
+                <img src={iconCart} className="w-5 h-5" />
+                Add to cart
+              </motion.button>
+
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => navigate("/cart")}
+                className="flex justify-center gap-2 items-center px-5 py-3 rounded-xl bg-[#14C9C9] text-white font-semibold"
+              >
+                <img src={iconFlash} className="w-5 h-5" />
+                Quick buy
+              </motion.button>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 pt-4">
+              {featureHighlights.map((item, index) => (
+                <motion.div
                   key={item.id}
-                  className="flex flex-col text-center text-[#667085] text-[14px] gap-[12px] items-center justify-center"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 + index * 0.1 }}
+                  className="flex flex-col items-center text-center text-sm text-gray-500 gap-2"
                 >
-                  <img src={item.icon} className="w-[40px] h-[40px]" />
+                  <img src={item.icon} className="w-8 h-8" />
                   <p>{item.name}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </motion.div>
       </div>
+
       <BoughtTogether />
       <Section3 />
       <Section4 />
       <Section5 />
-      <div className="flex flex-col gap-[20px] max-w-[1200px] mx-auto">
-        <h3 className="text-[#23272F] font-semibold text-[24px]">
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-0 py-12">
+        <h3 className="text-xl sm:text-2xl font-semibold mb-6">
           Recommended for you
         </h3>
         <Recommendation />
