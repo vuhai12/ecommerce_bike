@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { FaStar } from "react-icons/fa";
 import classNames from "classnames";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
+import iconArraw from "@assets/Section3/icon-arrow-up-right.svg";
+import { ArrowUpRight } from "lucide-react";
 
 const ProductItem = ({
   id,
@@ -56,9 +58,13 @@ const ProductItem = ({
         </p>
         <p className="text-[18px] font-semibold">{price}</p>
       </div>
-      <button className="text-black w-full rounded-[12px] py-[8px] text-[14px] font-semibold px-[14px] bg-[#E8FFFB] border-[1px] border-[#14C9C9]">
-        Add to cart
-      </button>
+      <Link
+        to={`/product/${id}`}
+        className="text-black w-full flex items-center gap-[10px] justify-center rounded-[12px] py-[8px] text-[14px] font-semibold px-[14px] bg-[#E8FFFB] border-[1px] border-[#14C9C9]"
+      >
+        Explore
+        <ArrowUpRight size={16} />
+      </Link>
     </div>
   );
 };
