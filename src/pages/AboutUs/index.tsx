@@ -1,24 +1,10 @@
 import MainLayout from "../../layouts/MainLayout";
-import { useEffect, useState } from "react";
 import { Hero } from "./AboutUs.styles";
 import { motion } from "framer-motion";
 import image2 from "@assets/AboutUs/image2.webp";
 import image3 from "@assets/AboutUs/image5.jpg";
 
 const AboutUs = () => {
-  const [currentWidth, setCurrentWidth] = useState(0);
-
-  useEffect(() => {
-    const updateWidth = () => {
-      setCurrentWidth(document.documentElement.clientWidth);
-    };
-
-    updateWidth();
-    window.addEventListener("resize", updateWidth);
-
-    return () => window.removeEventListener("resize", updateWidth);
-  }, []);
-
   return (
     <MainLayout>
       {/* Hero Section */}
