@@ -6,7 +6,7 @@ import { ReactNode } from "react";
 const CheckoutLayout = ({ children }: { children: ReactNode }) => {
   return (
     <ProductLayout>
-      <div className="flex gap-[50px] lg:flex-row flex-col">
+      <div className="flex gap-[50px] lg:flex-row flex-col container px-[10px] md:px-0">
         <div className="flex-[3]">
           <CheckoutSteps />
           {children}

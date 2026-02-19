@@ -18,8 +18,8 @@ const dataIcons = [
 
 const Footer = () => {
   return (
-    <footer className="bg-[#101828] w-full">
-      <div className=" px-4 sm:px-6 lg:px-0 pt-[100px]  max-w-[1200px] mx-auto">
+    <footer className="bg-[#101828] w-full ">
+      <div className=" px-4 sm:px-6 lg:px-0 pt-[100px] container">
         {/* Top Section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 py-12 border-b border-[#98A2B3]">
           {/* Logo + Description */}

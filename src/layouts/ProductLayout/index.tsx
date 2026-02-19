@@ -5,10 +5,12 @@ import { ReactNode } from "react";
 
 const ProductLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <div>
-      <HeaderProduct />
-      <div className="flex flex-col gap-[30px]">{children}</div>
-      <NewsLetterSection />
+    <div className="">
+      <div className="container  px-[20px] ">
+        <HeaderProduct />
+        <div className="flex flex-col gap-[30px]">{children}</div>
+        <NewsLetterSection />
+      </div>
       <Footer />
     </div>
   );

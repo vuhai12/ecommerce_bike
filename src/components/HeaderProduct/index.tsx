@@ -38,7 +38,7 @@ const HeaderProduct = () => {
   };
   return (
     <>
-      <div className="flex justify-between h-[72px] items-center max-w-[1200px] mx-auto px-4 md:px-0">
+      <div className="flex justify-between h-[72px] items-center ">
         <Link to={"/"}>
           <img src={logo} alt="logo" />
         </Link>
