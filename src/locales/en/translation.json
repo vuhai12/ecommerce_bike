@@ -1,0 +1,12 @@
+{
+  "menu": {
+    "home": "Home",
+    "ebikes": "Ebikes",
+    "blog": "Blog",
+    "about": "About us"
+  },
+  "banner": {
+    "top": "Amazing discounts on top-quality Ebike!",
+    "buyNow": "Buy now"
+  }
+}

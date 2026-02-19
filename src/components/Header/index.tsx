@@ -1,23 +1,24 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import logo from "@assets/Header/logo.svg";
 import iconBike from "@assets/Header/icon-bike.svg";
 import { UserIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
 import { Link, NavLink } from "react-router-dom";
-import { Menu } from "lucide-react";
+import { Menu, ChevronDown, Globe } from "lucide-react";
 import HambugerMenuProduct from "@components/HambugerMenuProduct";
-import { ChevronDown } from "lucide-react";
 import classNames from "classnames";
-import { Globe } from "lucide-react";
+import { dataMenu } from "./dataMenu";
 
-const dataMenu = [
+const menu = [
   { id: 1, name: "Home", path: "/" },
-  { id: 2, name: "Ebikes", path: "/product-list" },
-  { id: 3, name: "Blog", path: "/blog-list" },
-  { id: 4, name: "About us", path: "/about-us" },
+  { id: 2, name: "Blog", path: "/" },
 ];
 
 const Header = () => {
+  const { i18n, t } = useTranslation();
+
   const [contentWidth, setContentWidth] = useState(0);
+
   useEffect(() => {
     const updateWidth = () =>
       setContentWidth(document.documentElement.clientWidth);
@@ -31,62 +32,53 @@ const Header = () => {
   const handleToggleHambugerMenu = () => {
     setIsToggle(true);
   };
-  const languages = [
-    {
-      id: 1,
-      language: "VN",
-      icon: "",
-    },
-    {
-      id: 2,
-      language: "EN",
-      icon: "",
-    },
-  ];
-  const [language, setLanguage] = useState<string>("VN");
 
-  const handlePickLanguage = (language: string) => {
-    setLanguage(language);
+  const languages = [
+    { id: 1, code: "vi", label: "VN" },
+    { id: 2, code: "en", label: "EN" },
+  ];
+
+  const handlePickLanguage = (code: string) => {
+    i18n.changeLanguage(code);
   };
 
   return (
     <div className="w-full">
+      {/* Top banner */}
       <p
         style={{
           width: `${contentWidth}px`,
           marginLeft: `calc(50% - ${contentWidth / 2}px)`,
         }}
-        className="py-[10px] px-[10px]  gap-[4px] bg-[#00424D]  justify-center text-[12px] flex items-center"
+        className="py-[10px] px-[10px] bg-[#00424D] text-[12px] flex justify-center items-center gap-[4px]"
       >
-        <span className="text-white line-clamp-1">
-          Amazing discounts on top-quality Ebike! Shop now and save big. Limited
-          time offer.
-        </span>
+        <span className="text-white">{t("banner.top")}</span>
         <Link to={"/product-list"} className="text-[#14C9C9] underline">
-          Buy now
+          {t("banner.buyNow")}
         </Link>
       </p>
+
+      {/* Main header */}
       <div className="h-[84px] flex justify-between items-center max-w-[1200px] mx-auto">
         <Link to={"/"}>
-          <img src={logo} />
+          <img src={logo} alt="logo" />
         </Link>
 
         <ul className="lg:flex gap-[40px] hidden">
-          {dataMenu.map((item) => {
-            return (
-              <NavLink
-                key={item.id}
-                className={({ isActive }) =>
-                  isActive ? "text-[#14c9c9] font-semibold" : "text-gray-400"
-                }
-                to={item.path}
-              >
-                {item.name}
-              </NavLink>
-            );
-          })}
+          {dataMenu.map((item) => (
+            <NavLink
+              key={item.id}
+              to={item.path}
+              className={({ isActive }) =>
+                isActive ? "text-[#14c9c9] font-semibold" : "text-gray-400"
+              }
+            >
+              {t(item.label)}
+            </NavLink>
+          ))}
         </ul>
-        <div className="lg:flex gap-[24px] hidden  relative">
+
+        <div className="lg:flex gap-[24px] hidden relative">
           <Link to={"/login"}>
             <UserIcon className="w-6 h-6 cursor-pointer" />
           </Link>
@@ -94,44 +86,47 @@ const Header = () => {
             <ShoppingCartIcon className="w-6 h-6 cursor-pointer" />
           </Link>
 
-          <div className="flex gap-[10px] items-center relative group">
+          {/* LANGUAGE SWITCH */}
+          <div className="flex gap-[10px] items-center relative group cursor-pointer">
             <Globe className="w-6 h-6 text-gray-500" />
-            <p className="font-semibold text-[16px]">{language}</p>
-            <ChevronDown className="w-5 h-5 text-black" />
-            <div className="absolute hidden top-[100%] border-[1px] border-gray-300 z-[66] bg-white rounded-[5px] flex-col  group-hover:flex ">
-              {languages.map((item) => {
-                return (
-                  <div
-                    key={item.id}
-                    className={classNames(
-                      "flex gap-[8px] px-[30px] py-[10px] cursor-pointer",
-                      language == item.language ? "underline " : "",
-                    )}
-                    onClick={() => handlePickLanguage(item.language)}
-                  >
-                    <img src={item.icon} />
-                    <p>{item.language}</p>
-                  </div>
-                );
-              })}
+            <p className="font-semibold text-[16px] uppercase">
+              {i18n.language === "vi" ? "VN" : "EN"}
+            </p>
+            <ChevronDown className="w-5 h-5" />
+
+            <div className="absolute hidden top-[100%] border border-gray-300 z-[66] bg-white rounded-md flex-col group-hover:flex">
+              {languages.map((item) => (
+                <div
+                  key={item.id}
+                  className={classNames(
+                    "px-[30px] py-[10px] cursor-pointer hover:bg-gray-100",
+                    i18n.language === item.code ? "font-semibold" : "",
+                  )}
+                  onClick={() => handlePickLanguage(item.code)}
+                >
+                  {item.label}
+                </div>
+              ))}
             </div>
           </div>
         </div>
+
         <div className="lg:hidden" onClick={handleToggleHambugerMenu}>
           <Menu className="w-6 h-6 text-black" />
         </div>
       </div>
+
+      {/* Bottom banner */}
       <div
         style={{ width: `${contentWidth}px` }}
         className="py-[10px] flex bg-[#14C9C9] ml-[50%] -translate-x-[50%] gap-[8px] items-center justify-center"
       >
-        <img src={iconBike} />
-        <p>
-          <span className="text-white line-clamp-1">
-            EMotorad X2 Unisex Mountain Electric Cycle - $1999.99($300 OFF)
-          </span>
+        <img src={iconBike} alt="bike" />
+        <p className="text-white">
+          EMotorad X2 Unisex Mountain Electric Cycle - $1999.99 ($300 OFF)
         </p>
       </div>
+
       {isToggle && <HambugerMenuProduct setIsToggle={setIsToggle} />}
     </div>
   );
