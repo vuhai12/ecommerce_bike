@@ -166,7 +166,7 @@ const thumbnailImagesData = [
 const ProductDetail = () => {
   const [colorPicked, setColorPicked] = useState<string>("Warm Green");
   const [imagePicked, setImagePiked] = useState(
-    thumbnailImagesData[0].images[0].image
+    thumbnailImagesData[0].images[0].image,
   );
 
   const { id } = useParams();
@@ -174,7 +174,7 @@ const ProductDetail = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const dataFilter = thumbnailImagesData.filter(
-      (item) => item.color == colorPicked
+      (item) => item.color == colorPicked,
     );
     if (dataFilter.length > 0) {
       setImagePiked(dataFilter[0].images[0].image);
@@ -182,7 +182,7 @@ const ProductDetail = () => {
   }, [colorPicked]);
   return (
     <ProductLayout>
-      <div className="flex lg:gap-[50px] lg:flex-row flex-col gap-[20px]">
+      <div className="flex lg:gap-[50px] lg:flex-row flex-col gap-[20px] container">
         <div className="flex-1">
           {thumbnailImagesData.map((item, _) => {
             return (
@@ -263,7 +263,7 @@ const ProductDetail = () => {
       <Section3 />
       <Section4 />
       <Section5 />
-      <div className="flex flex-col gap-[20px]">
+      <div className="flex flex-col gap-[20px] max-w-[1200px] mx-auto">
         <h3 className="text-[#23272F] font-semibold text-[24px]">
           Recommended for you
         </h3>

@@ -1,15 +1,14 @@
 import styled from "styled-components";
 import image from "@assets/AboutUs/image6.jpg";
 
-export const Hero = styled.div<{ currentWidth: number }>`
+export const Hero = styled.div`
   height: 500px;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   background-image: url(${image});
   position: relative;
-  width: ${({ currentWidth }) => currentWidth}px;
-  margin-left: calc(50% - ${({ currentWidth }) => currentWidth / 2}px);
+
   z-index: 50;
 
   &::before {

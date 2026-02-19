@@ -51,7 +51,7 @@ const Section4 = () => {
     setTabActived(id);
   };
   return (
-    <div className="flex gap-[32px] flex-col">
+    <div className="flex gap-[32px] flex-col container">
       <div className="flex flex-[8px] flex-wrap border-[1px] border-[#EAECF0] bg-slate-200 rounded-[12px] p-[6px] items-center justify-center">
         {dataSection4.map((item, _) => {
           return (
@@ -60,7 +60,7 @@ const Section4 = () => {
                 "py-[10px] px-[14px] text-[16px] flex-1 text-center cursor-pointer",
                 tabActived == item.id
                   ? "bg-[#14C9C9] text-white rounded-[11px]"
-                  : "text-[#95a0b4]"
+                  : "text-[#95a0b4]",
               )}
               onClick={() => handleChangeTab(item.id)}
             >

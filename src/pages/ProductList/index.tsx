@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Hero from "./components/Hero";
 import Select from "@components/Select";
 import FilterProducts from "@components/FilterProducts";
+
 import image1 from "@assets/ProductList/Main/image1.svg";
 import image2 from "@assets/ProductList/Main/image2.svg";
 import image3 from "@assets/ProductList/Main/image3.svg";
@@ -17,6 +19,8 @@ import Pagination from "@components/Pagination";
 import FilterBar from "@components/FilterBar";
 import { SlidersHorizontal } from "lucide-react";
 
+/* ================= DATA ================= */
+
 const dataListProducts = [
   {
     id: 1,
@@ -26,7 +30,6 @@ const dataListProducts = [
     image: image1,
     rate: "3",
     category: "Full Suspension",
-    tag: "Hot",
   },
   {
     id: 2,
@@ -36,27 +39,24 @@ const dataListProducts = [
     image: image2,
     rate: "3",
     category: "Folding",
-    tag: "Hot",
   },
   {
     id: 3,
-    title: "K9 Carbon / Mid‑drive Fat Tire Electric MTB",
+    title: "K9 Carbon / Mid-drive Fat Tire Electric MTB",
     color: "green",
     price: "$350",
     image: image3,
     rate: "3",
     category: "Comfort",
-    tag: "Hot",
   },
   {
     id: 4,
-    title: "VDL Mountain Electric Bike for Adults, Fat Tire Ebike",
+    title: "VDL Mountain Electric Bike for Adults",
     color: "green",
     price: "$200",
     image: image4,
     rate: "3",
     category: "Folding",
-    tag: "Hot",
   },
   {
     id: 5,
@@ -66,7 +66,6 @@ const dataListProducts = [
     image: image5,
     rate: "3",
     category: "Full Suspension",
-    tag: "Hot",
   },
   {
     id: 6,
@@ -76,7 +75,6 @@ const dataListProducts = [
     image: image6,
     rate: "3",
     category: "Folding",
-    tag: "Hot",
   },
   {
     id: 7,
@@ -86,7 +84,6 @@ const dataListProducts = [
     image: image7,
     rate: "3",
     category: "Full Suspension",
-    tag: "Hot",
   },
   {
     id: 8,
@@ -96,14 +93,13 @@ const dataListProducts = [
     image: image8,
     rate: "3",
     category: "Hunting/Fishing",
-    tag: "Hot",
   },
 ];
 
 const dataSelect = [
   { id: 1, value: "best-selling", label: "Best Selling" },
-  { id: 2, value: "low-to-hight", label: "Low to Hight" },
-  { id: 3, value: "hight-to-low", label: "Hight to Low" },
+  { id: 2, value: "low-to-high", label: "Low to High" },
+  { id: 3, value: "high-to-low", label: "High to Low" },
 ];
 
 const listOptionfilters = [
@@ -124,47 +120,52 @@ const listOptionfilters = [
       { id: 5, label: "Light Trail" },
       { id: 6, label: "Hunting/Fishing" },
       { id: 7, label: "Full Suspension" },
+      { id: 8, label: "Folding" },
     ],
   },
   {
     id: 3,
     label: "Color",
     options: [
-      { id: 8, label: "green" },
-      { id: 9, label: "red" },
+      { id: 9, label: "green" },
+      { id: 10, label: "red" },
     ],
   },
 ];
+
+/* ================= COMPONENT ================= */
+
 const ProductList = () => {
-  const [value, setValue] = useState<string | number | undefined>(
-    dataSelect[0].value
-  );
-
-  const [listProducts, setListProduct] = useState<any>([]);
+  const [value, setValue] = useState("best-selling");
   const [listChecked, setListChecked] = useState<number[]>([]);
-
-  useEffect(() => {
-    setListProduct(dataListProducts);
-  }, [listChecked]);
-
   const [pageCurrent, setPageCurrent] = useState(1);
-  const limit = 6;
-
-  const ofset = (pageCurrent - 1) * limit;
-  const endItems = ofset + limit;
-
   const [isShowFilterBar, setIsShowFilterBar] = useState(false);
 
-  const handleShowFilterBar = () => {
-    setIsShowFilterBar(true);
-  };
+  const limit = 6;
+
+  /* ================= SORT ONLY ================= */
+
+  const sortedProducts = [...dataListProducts].sort((a, b) => {
+    const priceA = Number(a.price.replace("$", ""));
+    const priceB = Number(b.price.replace("$", ""));
+
+    if (value === "low-to-high") return priceA - priceB;
+    if (value === "high-to-low") return priceB - priceA;
+
+    return 0;
+  });
+
+  /* ================= PAGINATION ================= */
+
+  const offset = (pageCurrent - 1) * limit;
+  const currentProducts = sortedProducts.slice(offset, offset + limit);
 
   useEffect(() => {
-    if (isShowFilterBar) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    setPageCurrent(1);
+  }, [value]);
+
+  useEffect(() => {
+    document.body.style.overflow = isShowFilterBar ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
@@ -173,21 +174,28 @@ const ProductList = () => {
   return (
     <ProductLayout>
       <Hero />
-      <div className="flex gap-[10px] flex-col">
-        <div
-          className="flex gap-[20px] items-center lg:hidden cursor-pointer"
-          onClick={handleShowFilterBar}
+
+      <div className="flex flex-col gap-6 px-4 sm:px-6 lg:px-0 container">
+        {/* Mobile Filter */}
+        <motion.div
+          whileTap={{ scale: 0.95 }}
+          className="flex gap-4 items-center lg:hidden cursor-pointer"
+          onClick={() => setIsShowFilterBar(true)}
         >
           <SlidersHorizontal className="w-6 h-6" />
-          <h3 className="text-[24px] text-black ">Filters</h3>
-        </div>
-        <div className="justify-between py-[30px] hidden lg:flex">
-          <h3 className="text-[24px] text-black ">
-            {dataListProducts.length} Products
+          <h3 className="text-xl font-semibold">Filters</h3>
+        </motion.div>
+
+        {/* Desktop Header */}
+        <div className="justify-between py-6 hidden lg:flex items-center">
+          <h3 className="text-2xl font-semibold">
+            {sortedProducts.length} Products
           </h3>
           <Select options={dataSelect} value={value} setValue={setValue} />
         </div>
-        <div className="flex lg:gap-[50px] flex-col lg:flex-row">
+
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Sidebar UI Only */}
           <div className="lg:flex-1 hidden lg:block">
             <FilterProducts
               listOptionfilters={listOptionfilters}
@@ -195,50 +203,55 @@ const ProductList = () => {
               setListChecked={setListChecked}
             />
           </div>
-          <div className="lg:flex-[3] flex-col flex items-center gap-[30px]">
-            <div className="grid lg:grid-cols-3 grid-cols-1 sm:grid-cols-2 sm:gap-[20px]">
-              {listProducts.slice(ofset, endItems).map((item: any) => {
-                return (
-                  <ProductItem
-                    id={item.id}
-                    title={item.title}
-                    price={item.price}
-                    rate={item.rate}
-                    quantity="1200"
-                    image={item.image}
-                  />
-                );
-              })}
-            </div>
+
+          {/* Grid */}
+          <div className="lg:flex-[3] flex flex-col items-center gap-8 w-full">
+            <motion.div
+              layout
+              className="grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+            >
+              <AnimatePresence>
+                {currentProducts.map((item) => (
+                  <motion.div
+                    key={item.id}
+                    layout
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    whileHover={{ y: -8 }}
+                  >
+                    <ProductItem {...item} quantity="1200" />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </motion.div>
+
+            {/* Pagination */}
             <div className="hidden md:block">
               <Pagination
                 limit={limit}
-                totalItems={dataListProducts.length}
+                totalItems={sortedProducts.length}
                 pageCurrent={pageCurrent}
                 setPageCurrent={setPageCurrent}
               />
             </div>
-            <div className="md:hidden">
-              <button className="py-[10px] px-[20px] bg-[#14c9c9] rounded-[10px] text-[16px] text-white">
-                More See
-              </button>
-            </div>
           </div>
         </div>
       </div>
-      {isShowFilterBar && (
-        <FilterBar
-          isShowFilterBar={isShowFilterBar}
-          setIsShowFilterBar={setIsShowFilterBar}
-          listOptionfilters={listOptionfilters}
-          listChecked={listChecked}
-          setListChecked={setListChecked}
-          listProducts={listProducts.length}
-          value={value}
-          setValue={setValue}
-          dataSelect={dataSelect}
-        />
-      )}
+
+      {/* Mobile FilterBar UI Only */}
+      <FilterBar
+        isShowFilterBar={isShowFilterBar}
+        setIsShowFilterBar={setIsShowFilterBar}
+        listOptionfilters={listOptionfilters}
+        listChecked={listChecked}
+        setListChecked={setListChecked}
+        listProducts={sortedProducts.length}
+        value={value}
+        setValue={setValue}
+        dataSelect={dataSelect}
+      />
     </ProductLayout>
   );
 };

@@ -59,8 +59,8 @@ Night cycling is not just a ride — it is a moment of freedom.`,
 
 const Section7 = () => {
   return (
-    <>
-      <h3 className="text-[24px] text-[#23272F] font-semibold">
+    <div className="max-w-[1200px] mx-auto">
+      <h3 className="text-[24px] text-[#23272F] font-semibold mb-[30px]">
         Blog related to this product
       </h3>
       <div className="flex md:gap-[17px] md:flex-row flex-col gap-[20px]">
@@ -76,7 +76,7 @@ const Section7 = () => {
           );
         })}
       </div>
-    </>
+    </div>
   );
 };
 

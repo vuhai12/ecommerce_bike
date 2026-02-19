@@ -4,6 +4,7 @@ import image1 from "@assets/Blogs/image1.svg";
 import image2 from "@assets/Blogs/image2.svg";
 import image3 from "@assets/Blogs/image3.svg";
 import { useParams } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const dataBlogs = [
   {
@@ -20,91 +21,118 @@ A cycling tour is not just about the destination, but about every mile along the
     id: 2,
     image: image2,
     title: "Best Cycling Accessories",
-    des: `Having the right cycling accessories can make every ride safer, more comfortable, and more enjoyable.
-From helmets and gloves to lights and repair kits, each accessory plays an important role on the road.
-
-Good lighting improves visibility at night, while padded gloves reduce fatigue on long rides.
-With the right accessories, cycling becomes not just a sport, but a smooth and confident experience.`,
+    des: `Having the right cycling accessories can make every ride safer, more comfortable, and more enjoyable.`,
   },
   {
     id: 3,
     image: image3,
     title: "Cycling through The Night",
-    des: `When the city falls asleep, cycling through the night feels different.
-The streets are quiet, the air is cool, and every pedal stroke is calming.
-
-Streetlights guide the way, and the silence creates space to think and breathe.
-Night cycling is not just a ride — it is a moment of freedom.`,
+    des: `When the city falls asleep, cycling through the night feels different.`,
   },
 ];
 
 const BlogPage = () => {
   const { id } = useParams();
-  const blog = dataBlogs.find((item) => String(item.id) == id);
+  const blog = dataBlogs.find((item) => String(item.id) === id);
 
   if (!blog) {
     return (
       <MainLayout>
-        <div className="mt-[50px] text-center">
-          <h2 className="text-[24px] font-semibold">Blog không tồn tại</h2>
+        <div className="mt-20 text-center ">
+          <h2 className="text-2xl font-semibold">Blog không tồn tại</h2>
         </div>
       </MainLayout>
     );
   }
+
   return (
     <MainLayout>
-      <div className="flex lg:flex-row flex-col gap-[30px] mt-[30px]">
-        {blog && (
-          <div className="flex-[3] flex flex-col gap-[30px]">
-            <div className="h-[500px] w-full">
-              <img
+      <div className="container px-4 sm:px-6 lg:px-0 mt-10">
+        <div className="flex flex-col lg:flex-row gap-12">
+          {/* LEFT CONTENT */}
+          <motion.div
+            className="flex-[3] flex flex-col gap-10"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            {/* Image */}
+            <div className="w-full overflow-hidden rounded-xl">
+              <motion.img
                 src={blog.image}
-                className="object-cover object-center w-full h-full"
+                alt={blog.title}
+                className="w-full h-[250px] sm:h-[350px] lg:h-[500px] object-cover"
+                initial={{ scale: 1.1 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.8 }}
               />
             </div>
-            <div className="flex flex-col gap-[20px]">
-              <h3 className="text-[18px] text-black font-semibold">
+
+            {/* Content */}
+            <div className="flex flex-col gap-6">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold">
                 {blog.title}
-              </h3>
-              <p className="text-[16px]">{blog.des}</p>
+              </h1>
+
+              <p className="text-gray-700 leading-relaxed whitespace-pre-line text-base sm:text-lg">
+                {blog.des}
+              </p>
             </div>
-            <div className="flex flex-col gap-[20px]">
-              <h3 className="text-[33px]">comment's</h3>
-              <h3 className="text-[33px]">Leave a Comment</h3>
-              <form className="flex flex-col gap-[20px]">
-                <div className="flex gap-[20px] md:flex-row flex-col">
-                  <div className="flex flex-col flex-1 gap-[10px]">
-                    <label>Nick Name :</label>
+
+            {/* Comment Section */}
+            <motion.div
+              className="flex flex-col gap-8 mt-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+            >
+              <h2 className="text-2xl font-semibold">Leave a Comment</h2>
+
+              <form className="flex flex-col gap-6">
+                <div className="flex flex-col md:flex-row gap-6">
+                  <div className="flex flex-col flex-1 gap-2">
+                    <label className="font-medium">Nick Name</label>
                     <input
-                      placeholder="Name"
-                      className="py-[10px] px-[20px]  bg-gray-100 rounded-[10px] border-[1px] border-gray-300"
+                      placeholder="Your name"
+                      className="px-4 py-3 bg-gray-100 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#14c9c9]"
                     />
                   </div>
-                  <div className="flex flex-col flex-1 gap-[10px]">
-                    <label>E-mail :</label>
+
+                  <div className="flex flex-col flex-1 gap-2">
+                    <label className="font-medium">E-mail</label>
                     <input
-                      placeholder="email"
-                      className="py-[10px] px-[20px]  bg-gray-100 rounded-[10px] border-[1px] border-gray-300"
+                      placeholder="Your email"
+                      className="px-4 py-3 bg-gray-100 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#14c9c9]"
                     />
                   </div>
                 </div>
-                <div className="flex flex-col flex-1 gap-[10px]">
-                  <label>Write a Message :</label>
-                  <textarea className="h-[200px] bg-gray-100 py-[10px] px-[20px] border-[1px] border-gray-300 rounded-[10px]"></textarea>
+
+                <div className="flex flex-col gap-2">
+                  <label className="font-medium">Write a Message</label>
+                  <textarea className="h-[180px] sm:h-[220px] bg-gray-100 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#14c9c9]" />
                 </div>
-                <button
+
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                   type="button"
-                  className="py-[10px] px-[20px] w-fit bg-[#14c9c9] rounded-[10px] text-white font-semibold"
+                  className="w-fit px-6 py-3 bg-[#14c9c9] rounded-xl text-white font-semibold hover:bg-[#0fb5b5] transition"
                 >
                   Submit
-                </button>
+                </motion.button>
               </form>
-            </div>
-          </div>
-        )}
+            </motion.div>
+          </motion.div>
 
-        <div className="flex-1">
-          <RecentBlogs />
+          {/* SIDEBAR */}
+          <motion.div
+            className="flex-1"
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <RecentBlogs />
+          </motion.div>
         </div>
       </div>
     </MainLayout>

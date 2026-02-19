@@ -66,7 +66,7 @@ const Header = () => {
           Buy now
         </Link>
       </p>
-      <div className="h-[84px] flex justify-between items-center">
+      <div className="h-[84px] flex justify-between items-center max-w-[1200px] mx-auto">
         <Link to={"/"}>
           <img src={logo} />
         </Link>
@@ -105,7 +105,7 @@ const Header = () => {
                     key={item.id}
                     className={classNames(
                       "flex gap-[8px] px-[30px] py-[10px] cursor-pointer",
-                      language == item.language ? "underline " : ""
+                      language == item.language ? "underline " : "",
                     )}
                     onClick={() => handlePickLanguage(item.language)}
                   >

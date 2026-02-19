@@ -11,7 +11,7 @@ const ratings: Record<Star, number> = {
 const totalReviews = 320;
 const Section5 = () => {
   return (
-    <div className="flex flex-col gap-[20px]">
+    <div className="flex flex-col gap-[20px] container">
       <h3 className="text-[24px] text-[#23272F] font-semibold">
         Ratings & Reviews
       </h3>

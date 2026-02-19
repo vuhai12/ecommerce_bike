@@ -62,7 +62,7 @@ const Counter = ({ value }: { value: number }) => {
 
 const Section1 = () => {
   return (
-    <div className="py-5 px-4">
+    <div className="py-16 px-4">
       <div className="max-w-[1200px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-16 text-center">
         {dataSection3.map((item, index) => (
           <motion.div

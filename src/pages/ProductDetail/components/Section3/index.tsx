@@ -46,20 +46,22 @@ const dataSection3 = [
 
 const Section3 = () => {
   return (
-    <div className="grid md:grid-cols-3 grid-cols-1 md:justify-items-start justify-items-center text-center gap-y-[48px] p-[50px] bg-[#23272F]">
-      {dataSection3.map((item, _) => {
-        return (
-          <div key={item.id} className="flex gap-[20px] items-center">
-            <img src={item.icon} />
-            <div className="flex flex-col gap-[4px] flex-1">
-              <h2 className="text-[30px] text-[#E8FFFB] font-semibold">
-                {item.value}
-              </h2>
-              <p className="text-[#07828B] text-[18px]">{item.label}</p>
+    <div className=" bg-[#23272F]">
+      <div className="container grid md:grid-cols-3 grid-cols-1 md:justify-items-start justify-items-center text-center gap-y-[48px] p-[50px]">
+        {dataSection3.map((item, _) => {
+          return (
+            <div key={item.id} className="flex gap-[20px] items-center">
+              <img src={item.icon} />
+              <div className="flex flex-col gap-[4px] flex-1">
+                <h2 className="text-[30px] text-[#E8FFFB] font-semibold">
+                  {item.value}
+                </h2>
+                <p className="text-[#07828B] text-[18px]">{item.label}</p>
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 };

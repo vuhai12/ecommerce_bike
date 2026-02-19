@@ -14,6 +14,7 @@
     "@hookform/resolvers": "^5.2.2",
     "classnames": "^2.5.1",
     "date-fns": "^4.1.0",
+    "framer-motion": "^12.34.2",
     "lucide-react": "^0.546.0",
     "nanoid": "^5.1.6",
     "rc-slider": "^11.1.9",

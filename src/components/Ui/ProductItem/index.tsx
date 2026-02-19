@@ -22,7 +22,7 @@ const ProductItem = ({
   const [isLike, setIsLike] = useState(false);
   const navigate = useNavigate();
   return (
-    <div className="flex flex-col  w-full relative gap-[16px] p-[12px] border-[#EAECF0] border-[1px] rounded-[12px]">
+    <div className="flex flex-col h-full  w-full relative gap-[16px] p-[12px] border-[#EAECF0] border-[1px] rounded-[12px]">
       <div className="h-[226px] relative">
         <img
           src={image}
@@ -33,13 +33,13 @@ const ProductItem = ({
           onClick={() => setIsLike(!isLike)}
           className={classNames(
             `absolute cursor-pointer flex items-center justify-center top-0 right-0 w-[36px] h-[36px] rounded-[50%] border-[1px] border-[#d8dadf]`,
-            isLike ? "bg-[#14C9C9]" : ""
+            isLike ? "bg-[#14C9C9]" : "",
           )}
         >
           <FaHeart
             className={classNames(
               `w-[20px] h-[20px]`,
-              isLike ? "text-[#E8FFFB]" : "text-[#d8dbe2]"
+              isLike ? "text-[#E8FFFB]" : "text-[#d8dbe2]",
             )}
           />
         </div>

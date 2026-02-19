@@ -51,7 +51,7 @@ const dataBoughtTogethers = [
 const BoughtTogether = () => {
   const [listChecked, setListChecked] = useState<number[]>([]);
   return (
-    <div className="flex p-[20px] rounded-[16px] border-[1px] gap-[20px] border-[#EAECF0] flex-col">
+    <div className="flex p-[20px] max-w-[1200px] mx-auto rounded-[16px] border-[1px] gap-[20px] border-[#EAECF0] flex-col">
       <div className="flex justify-between items-center">
         <h3 className="text-[20px] font-semibold text-black">
           Frequently bought together
