@@ -39,7 +39,7 @@ const Checkout = () => {
 
   return (
     <ProductLayout>
-      <div className="flex lg:flex-row flex-col gap-[50px]">
+      <div className="flex lg:flex-row flex-col gap-[50px] mt-[50px]">
         <div className="lg:w-[70%] w-full flex flex-col gap-[30px] flex-wrap">
           <CheckoutSteps />
           <div>

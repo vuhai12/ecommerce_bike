@@ -7,7 +7,7 @@ const ProductLayout = ({ children }: { children: ReactNode }) => {
   return (
     <div className="">
       <Header />
-      <div className="container">
+      <div className="container px-[20px] md:px-0">
         {/* <HeaderProduct /> */}
         <div className="flex flex-col gap-[30px]">{children}</div>
         <NewsLetterSection />
