@@ -1,6 +1,5 @@
 import Footer from "@components/Footer";
 import Header from "@components/Header";
-import HeaderProduct from "@components/HeaderProduct";
 import NewsLetterSection from "@components/NewsLetterSection";
 import { ReactNode } from "react";
 
