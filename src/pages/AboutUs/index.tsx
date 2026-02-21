@@ -40,7 +40,7 @@ const AboutUs = () => {
       </Hero>
 
       {/* Content Grid */}
-      <div className="mt-[30px] grid md:grid-cols-2 grid-cols-1 max-w-[1200px] mx-auto">
+      <div className="mt-[50px] grid md:grid-cols-2 grid-cols-1 container">
         {/* Block 1 */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}

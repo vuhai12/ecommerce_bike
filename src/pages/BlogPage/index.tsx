@@ -21,7 +21,7 @@ const BlogPage = () => {
 
   return (
     <MainLayout>
-      <div className="container px-4 sm:px-6 lg:px-0 mt-10">
+      <div className="container px-4 sm:px-6 lg:px-0 mt-10 overflow-hidden">
         <div className="flex flex-col lg:flex-row gap-12">
           {/* LEFT CONTENT */}
           <motion.div

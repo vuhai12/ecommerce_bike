@@ -13,12 +13,12 @@ const BlogList = () => {
 
   return (
     <MainLayout>
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-0 py-12">
-        <div className="flex flex-col lg:flex-row gap-12">
+      <div className="px-4 sm:px-6 lg:px-0 py-12 container overflow-hidden">
+        <div className="flex flex-col lg:flex-row gap-12  ">
           {/* LEFT CONTENT */}
           <div className="flex-[3] flex flex-col gap-12">
             {/* BLOG GRID */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8 ">
               {listBlogs.map((item, index) => (
                 <motion.div
                   key={item.id}
@@ -57,7 +57,7 @@ const BlogList = () => {
                         </motion.div>
                       </div>
 
-                      <p className="text-sm text-gray-500 line-clamp-3 leading-relaxed">
+                      <p className="text-sm text-gray-500 leading-relaxed line-clamp-2">
                         {item.des}
                       </p>
                     </div>
@@ -85,7 +85,7 @@ const BlogList = () => {
 
           {/* RIGHT SIDEBAR */}
           <motion.div
-            className="flex-1 lg:sticky lg:top-24 h-fit"
+            className="flex-1 lg:sticky h-fit"
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}

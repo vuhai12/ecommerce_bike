@@ -1,4 +1,5 @@
 import Footer from "@components/Footer";
+import Header from "@components/Header";
 import HeaderProduct from "@components/HeaderProduct";
 import NewsLetterSection from "@components/NewsLetterSection";
 import { ReactNode } from "react";
@@ -6,8 +7,9 @@ import { ReactNode } from "react";
 const ProductLayout = ({ children }: { children: ReactNode }) => {
   return (
     <div className="">
+      <Header />
       <div className="container">
-        <HeaderProduct />
+        {/* <HeaderProduct /> */}
         <div className="flex flex-col gap-[30px]">{children}</div>
         <NewsLetterSection />
       </div>

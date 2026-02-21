@@ -143,7 +143,7 @@ const ProductList = () => {
 
   const limit = 6;
 
-  /* ================= SORT ONLY ================= */
+  /* ================= SORT ================= */
 
   const sortedProducts = [...dataListProducts].sort((a, b) => {
     const priceA = Number(a.price.replace("$", ""));
@@ -151,7 +151,6 @@ const ProductList = () => {
 
     if (value === "low-to-high") return priceA - priceB;
     if (value === "high-to-low") return priceB - priceA;
-
     return 0;
   });
 
@@ -175,72 +174,97 @@ const ProductList = () => {
     <ProductLayout>
       <Hero />
 
-      <div className="flex flex-col gap-6 px-4 sm:px-6 lg:px-0 container">
-        {/* Mobile Filter */}
-        <motion.div
-          whileTap={{ scale: 0.95 }}
-          className="flex gap-4 items-center lg:hidden cursor-pointer"
-          onClick={() => setIsShowFilterBar(true)}
-        >
-          <SlidersHorizontal className="w-6 h-6" />
-          <h3 className="text-xl font-semibold">Filters</h3>
-        </motion.div>
+      <div className="bg-gray-50 py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Mobile Filter Button */}
+          <motion.div
+            whileTap={{ scale: 0.95 }}
+            className="flex items-center justify-between lg:hidden mb-6"
+          >
+            <div
+              className="flex items-center gap-3 cursor-pointer"
+              onClick={() => setIsShowFilterBar(true)}
+            >
+              <div className="p-2 bg-white shadow rounded-xl">
+                <SlidersHorizontal className="w-5 h-5" />
+              </div>
+              <span className="font-semibold text-lg">Filters</span>
+            </div>
 
-        {/* Desktop Header */}
-        <div className="justify-between py-6 hidden lg:flex items-center">
-          <h3 className="text-2xl font-semibold">
-            {sortedProducts.length} Products
-          </h3>
-          <Select options={dataSelect} value={value} setValue={setValue} />
-        </div>
+            <span className="text-gray-500 text-sm">
+              {sortedProducts.length} products
+            </span>
+          </motion.div>
 
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* Sidebar UI Only */}
-          <div className="lg:flex-1 hidden lg:block">
-            <FilterProducts
-              listOptionfilters={listOptionfilters}
-              listChecked={listChecked}
-              setListChecked={setListChecked}
-            />
+          {/* Desktop Header */}
+          <div className="hidden lg:flex justify-between items-center mb-10">
+            <h2 className="text-3xl font-bold tracking-tight">
+              {sortedProducts.length} Products
+            </h2>
+            <Select options={dataSelect} value={value} setValue={setValue} />
           </div>
 
-          {/* Grid */}
-          <div className="lg:flex-[3] flex flex-col items-center gap-8 w-full">
-            <motion.div
-              layout
-              className="grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-            >
-              <AnimatePresence>
-                {currentProducts.map((item) => (
-                  <motion.div
-                    key={item.id}
-                    layout
-                    initial={{ opacity: 0, y: 40 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    whileHover={{ y: -8 }}
-                  >
-                    <ProductItem {...item} quantity="1200" />
-                  </motion.div>
-                ))}
-              </AnimatePresence>
-            </motion.div>
+          <div className="flex flex-col lg:flex-row gap-10">
+            {/* Sidebar */}
+            <div className="hidden lg:block w-72 shrink-0">
+              <div className="sticky top-24 bg-white rounded-2xl shadow-sm p-6">
+                <FilterProducts
+                  listOptionfilters={listOptionfilters}
+                  listChecked={listChecked}
+                  setListChecked={setListChecked}
+                />
+              </div>
+            </div>
 
-            {/* Pagination */}
-            <div className="hidden md:block">
-              <Pagination
-                limit={limit}
-                totalItems={sortedProducts.length}
-                pageCurrent={pageCurrent}
-                setPageCurrent={setPageCurrent}
-              />
+            {/* Product Grid */}
+            <div className="flex-1">
+              {currentProducts.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-24 text-center">
+                  <h3 className="text-xl font-semibold mb-2">
+                    No products found
+                  </h3>
+                  <p className="text-gray-500">Try adjusting your filters</p>
+                </div>
+              ) : (
+                <>
+                  <motion.div
+                    layout
+                    className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8"
+                  >
+                    <AnimatePresence>
+                      {currentProducts.map((item) => (
+                        <motion.div
+                          key={item.id}
+                          layout
+                          initial={{ opacity: 0, y: 30 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.3 }}
+                          whileHover={{ y: -6 }}
+                        >
+                          <ProductItem {...item} quantity="1200" />
+                        </motion.div>
+                      ))}
+                    </AnimatePresence>
+                  </motion.div>
+
+                  {/* Pagination */}
+                  <div className="mt-12 flex justify-center">
+                    <Pagination
+                      limit={limit}
+                      totalItems={sortedProducts.length}
+                      pageCurrent={pageCurrent}
+                      setPageCurrent={setPageCurrent}
+                    />
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>
       </div>
 
-      {/* Mobile FilterBar UI Only */}
+      {/* Mobile FilterBar */}
       <FilterBar
         isShowFilterBar={isShowFilterBar}
         setIsShowFilterBar={setIsShowFilterBar}

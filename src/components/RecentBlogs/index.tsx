@@ -30,11 +30,11 @@ const RecentBlogs = () => {
 
             {/* Content */}
             <div className="flex flex-col justify-between flex-1">
-              <h3 className="text-sm sm:text-base md:text-lg font-semibold text-gray-800 group-hover:text-[#14c9c9] transition">
+              <h3 className="text-sm sm:text-base md:text-lg line-clamp-2 font-semibold text-gray-800 group-hover:text-[#14c9c9] transition">
                 {item.title}
               </h3>
 
-              <p className="text-xs sm:text-sm text-gray-500 line-clamp-2 sm:line-clamp-3">
+              <p className="text-xs sm:text-sm text-gray-500 line-clamp-2 ">
                 {item.des}
               </p>
             </div>
