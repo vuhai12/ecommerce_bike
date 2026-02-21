@@ -1,33 +1,7 @@
 import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
-import { t } from "i18next";
 import { useEffect, useRef } from "react";
-
-const dataSection3 = [
-  {
-    id: 1,
-    value: 5896,
-    title: "hightLight.CustomerServed.title",
-    lable: "hightLight.CustomerServed.des",
-  },
-  {
-    id: 2,
-    value: 1587,
-    title: "hightLight.Reviews.title",
-    lable: "hightLight.Reviews.des",
-  },
-  {
-    id: 3,
-    value: 21,
-    title: "hightLight.Certifications.title",
-    lable: "hightLight.Certifications.des",
-  },
-  {
-    id: 4,
-    value: 8956,
-    title: "hightLight.ValueProposition.title",
-    lable: "hightLight.ValueProposition.des",
-  },
-];
+import { useTranslation } from "react-i18next";
+import { highlightStats } from "@constants/hightLightStart";
 
 const Counter = ({ value }: { value: number }) => {
   const ref = useRef(null);
@@ -60,10 +34,11 @@ const Counter = ({ value }: { value: number }) => {
 };
 
 const Section1 = () => {
+  const { t } = useTranslation();
   return (
     <div className="py-5 px-4">
       <div className="max-w-[1200px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-16 text-center">
-        {dataSection3.map((item, index) => (
+        {highlightStats.map((item, index) => (
           <motion.div
             key={item.id}
             initial={{ opacity: 0, y: 50 }}

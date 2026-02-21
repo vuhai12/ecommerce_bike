@@ -3,10 +3,11 @@ import { motion } from "framer-motion";
 import bgImgae from "@assets/Hero/bg-image.svg";
 import iconArow from "@assets/Hero/icon-arrow-up-right.svg";
 import { Link } from "react-router-dom";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 const Hero = () => {
   const [contentWidth, setContentWidth] = useState(0);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const updateWidth = () =>

@@ -41,11 +41,17 @@
     "des": "Trả lời một vài câu hỏi nhanh và chúng tôi sẽ ngay lập tức đề xuất chiếc eBike phù hợp nhất cho bạn. Nhận gợi ý được cá nhân hóa dựa trên chiều cao và nhu cầu sử dụng của bạn."
   },
   "HeadingSection3": {
-    "title": "Một chiếc Ebike cho mọi loại người lái",
+    "title": {
+      "AnEbikefor": "Xe điện",
+      "Every": "cho",
+      "Typeof": "mọi hành trình",
+      "Rider": "của bạn"
+    },
+    "des": "Giải pháp phân tích sản phẩm và tăng trưởng mạnh mẽ, tự phục vụ, giúp bạn chuyển đổi, tương tác và giữ chân nhiều người dùng hơn. Được hơn 4.000 startup tin tưởng.",
     "Explore": "Khám phá",
-    "Bicycles": "Xe đạp",
+    "Bicycles": "Mẫu Xe",
     "BestSeller": "Bán chạy nhất",
-    "New Arrival": "Sản phẩm mới",
+    "NewArrival": "Sản phẩm mới",
     "AddToCart": "Thêm vào giỏ hàng",
     "ViewAll": "Xem tất cả"
   }

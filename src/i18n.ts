@@ -13,9 +13,22 @@ i18n
       en: { translation: en },
       vi: { translation: vi },
     },
+
+    supportedLngs: ["en", "vi"],
+
     fallbackLng: "en",
+
+    detection: {
+      order: ["localStorage", "navigator"],
+      caches: ["localStorage"], // 👈 lưu lại lựa chọn
+    },
+
     interpolation: {
       escapeValue: false,
+    },
+
+    react: {
+      useSuspense: false, // 👈 tránh nháy khi load
     },
   });
 

@@ -1,51 +1,7 @@
 import { motion } from "framer-motion";
-import image1 from "@assets/Section6/image1.svg";
-import image2 from "@assets/Section6/image2.svg";
-import image3 from "@assets/Section6/image3.svg";
-import image4 from "@assets/Blogs/image4.jpg";
-import image5 from "@assets/Blogs/image5.jpg";
-import image6 from "@assets/Blogs/image6.jpg";
 import BlogItem from "@components/Ui/BlogItem";
 import { Link } from "react-router-dom";
-
-const dataSection6 = [
-  {
-    id: 1,
-    image: image1,
-    title: "My Dream Cycling Tour",
-    des: "Where can I get some? Etiam risus diam...",
-  },
-  {
-    id: 2,
-    image: image2,
-    title: "My Dream Cycling Tour",
-    des: "Where can I get some? Etiam risus diam...",
-  },
-  {
-    id: 3,
-    image: image3,
-    title: "My Dream Cycling Tour",
-    des: "Where can I get some? Etiam risus diam...",
-  },
-  {
-    id: 4,
-    image: image4,
-    title: "My Dream Cycling Tour",
-    des: "Where can I get some? Etiam risus diam...",
-  },
-  {
-    id: 5,
-    image: image5,
-    title: "My Dream Cycling Tour",
-    des: "Where can I get some? Etiam risus diam...",
-  },
-  {
-    id: 6,
-    image: image6,
-    title: "My Dream Cycling Tour",
-    des: "Where can I get some? Etiam risus diam...",
-  },
-];
+import { listBlogs } from "@constants/listBlogs";
 
 const containerVariants = {
   hidden: {},
@@ -94,7 +50,7 @@ const Section6 = () => {
         viewport={{ once: true }}
         className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8"
       >
-        {dataSection6.map((item) => (
+        {listBlogs.map((item) => (
           <motion.div
             key={item.id}
             variants={itemVariants}

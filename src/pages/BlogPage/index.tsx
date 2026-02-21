@@ -1,39 +1,13 @@
 import RecentBlogs from "@components/RecentBlogs";
 import MainLayout from "../../layouts/MainLayout";
-import image1 from "@assets/Blogs/image1.svg";
-import image2 from "@assets/Blogs/image2.svg";
-import image3 from "@assets/Blogs/image3.svg";
+import { listBlogs } from "../../constants/listBlogs";
+
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 
-const dataBlogs = [
-  {
-    id: 1,
-    image: image1,
-    title: "My Dream Cycling Tour",
-    des: `My dream cycling tour is about exploring new places at my own pace.
-Riding through long roads, small towns, and beautiful landscapes brings a special sense of freedom.
-
-Every journey is a mix of challenge and joy, with moments to stop, breathe, and enjoy the view.
-A cycling tour is not just about the destination, but about every mile along the way.`,
-  },
-  {
-    id: 2,
-    image: image2,
-    title: "Best Cycling Accessories",
-    des: `Having the right cycling accessories can make every ride safer, more comfortable, and more enjoyable.`,
-  },
-  {
-    id: 3,
-    image: image3,
-    title: "Cycling through The Night",
-    des: `When the city falls asleep, cycling through the night feels different.`,
-  },
-];
-
 const BlogPage = () => {
   const { id } = useParams();
-  const blog = dataBlogs.find((item) => String(item.id) === id);
+  const blog = listBlogs.find((item) => String(item.id) === id);
 
   if (!blog) {
     return (

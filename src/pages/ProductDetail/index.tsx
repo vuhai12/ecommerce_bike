@@ -157,7 +157,7 @@ const ProductDetail = () => {
 
   return (
     <ProductLayout>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-0 py-12">
+      <div className="container px-4 sm:px-6 lg:px-0 py-12 overflow-x-hidden">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -259,13 +259,14 @@ const ProductDetail = () => {
           </motion.div>
         </motion.div>
       </div>
+      <div className="px-4 lg:px-0 flex flex-col gap-[20px]">
+        <BoughtTogether />
+        <Section3 />
+        <Section4 />
+        <Section5 />
+      </div>
 
-      <BoughtTogether />
-      <Section3 />
-      <Section4 />
-      <Section5 />
-
-      <div className="container mx-auto px-4 sm:px-6 lg:px-0 py-12">
+      <div className="container overflow-hidden px-4 sm:px-6 lg:px-0 py-12 ">
         <h3 className="text-xl sm:text-2xl font-semibold mb-6">
           Recommended for you
         </h3>

@@ -9,7 +9,7 @@ export const Hero = styled.div`
   background-image: url(${image});
   position: relative;
 
-  z-index: 50;
+  z-index: 30;
 
   &::before {
     content: "";

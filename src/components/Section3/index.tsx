@@ -9,18 +9,19 @@ import iconArraw from "@assets/Section3/icon-arrow-up-right.svg";
 import ProductItem from "@components/Ui/ProductItem";
 import classNames from "classnames";
 import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const dataSection3 = [
-  { id: 1, image: image1, title: "Montra", des: "Bicycles" },
-  { id: 2, image: image2, title: "Btwin", des: "Bicycles" },
-  { id: 3, image: image3, title: "Trek", des: "Bicycles" },
-  { id: 4, image: image4, title: "Giant", des: "Bicycles" },
+  { id: 1, image: image1, title: "Montra", des: "HeadingSection3.Bicycles" },
+  { id: 2, image: image2, title: "Btwin", des: "HeadingSection3.Bicycles" },
+  { id: 3, image: image3, title: "Trek", des: "HeadingSection3.Bicycles" },
+  { id: 4, image: image4, title: "Giant", des: "HeadingSection3.Bicycles" },
 ];
 
 const tabDatas = [
   {
     id: 1,
-    lable: "Best Sellers",
+    lable: "HeadingSection3.BestSeller",
     products: [
       { id: 1, title: "ECO BIKE MAX", price: "$599.99", image: image1 },
       { id: 2, title: "ECO BIKE PRO", price: "$2358.99", image: image2 },
@@ -30,7 +31,7 @@ const tabDatas = [
   },
   {
     id: 2,
-    lable: "New Arrival",
+    lable: "HeadingSection3.NewArrival",
     products: [
       { id: 9, title: "New Bike 1", price: "$599.99", image: image8 },
       { id: 10, title: "New Bike 2", price: "$2358.99", image: image8 },
@@ -43,6 +44,7 @@ const tabDatas = [
 const Section3 = () => {
   const [activeTab, setActiveTab] = useState(1);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const activeProducts =
     tabDatas.find((tab) => tab.id === activeTab)?.products || [];
@@ -57,9 +59,21 @@ const Section3 = () => {
         transition={{ duration: 0.8 }}
         className="text-center max-w-[800px] mx-auto mb-[120px] "
       >
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold ">
-          An Ebike for Every Type of Rider
+        <h1 className="md:text-[40px] font-semibold text-[30px] mb-[20px]">
+          <span className="text-black">
+            {t("HeadingSection3.title.AnEbikefor")}{" "}
+          </span>
+          <span className="text-[#14C9C9]">
+            {t("HeadingSection3.title.Every")}{" "}
+          </span>
+          <span className="text-black">
+            {t("HeadingSection3.title.Typeof")}{" "}
+          </span>
+          <span className="text-[#14C9C9]">
+            {t("HeadingSection3.title.Rider")}
+          </span>
         </h1>
+        <p className="text-[18px] text-[#667085]">{t("HeadingSection3.des")}</p>
       </motion.div>
 
       {/* BRAND CARDS */}
@@ -78,14 +92,14 @@ const Section3 = () => {
               src={item.image}
               className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2"
             />
-            <h5 className="text-xl font-semibold mt-14">{item.title}</h5>
-            <p className="text-[#667085]">{item.des}</p>
+            <h5 className="text-xl font-semibold mt-14">{t(item.title)}</h5>
+            <p className="text-[#667085]">{t(item.des)}</p>
 
             <button
               onClick={() => navigate(`/product/${item.id}`)}
               className="mt-4 inline-flex items-center gap-2 bg-[#14C9C9] px-4 py-2 rounded-lg text-white"
             >
-              Explore
+              {t("HeadingSection3.Explore")}
               <img src={iconArraw} />
             </button>
           </motion.div>
@@ -113,7 +127,7 @@ const Section3 = () => {
                 activeTab === tab.id ? "text-white" : "text-[#667085]",
               )}
             >
-              {tab.lable}
+              {t(tab.lable)}
             </span>
           </div>
         ))}
@@ -154,7 +168,7 @@ const Section3 = () => {
           to="/product-list"
           className="px-6 py-3 bg-[#14C9C9] text-white rounded-xl font-semibold"
         >
-          View All
+          {t("HeadingSection3.ViewAll")}
         </Link>
       </div>
     </section>

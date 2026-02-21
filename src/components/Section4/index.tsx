@@ -41,16 +41,9 @@ const Section4 = () => {
         className="flex gap-5 flex-col justify-center items-center max-w-[900px] mx-auto text-center"
       >
         <h1 className="md:text-[40px] font-semibold text-[30px]">
-          <span className="text-black">An Ebike for </span>
-          <span className="text-[#14C9C9]">Every </span>
-          <span className="text-black">Type of </span>
-          <span className="text-[#14C9C9]">Rider</span>
+          Experience <span className="text-[#14C9C9]">More Than Just</span> a
+          Ride
         </h1>
-
-        <p className="text-[18px] text-[#667085]">
-          Powerful, self-serve product and growth analytics to help you convert,
-          engage, and retain more users. Trusted by over 4,000 startups.
-        </p>
       </motion.div>
 
       {/* CONTENT GRID */}

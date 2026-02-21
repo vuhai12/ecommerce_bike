@@ -6,7 +6,7 @@ import { ReactNode } from "react";
 const ProductLayout = ({ children }: { children: ReactNode }) => {
   return (
     <div className="">
-      <div className="container  px-[20px] ">
+      <div className="container">
         <HeaderProduct />
         <div className="flex flex-col gap-[30px]">{children}</div>
         <NewsLetterSection />

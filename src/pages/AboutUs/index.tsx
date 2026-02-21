@@ -13,7 +13,7 @@ const AboutUs = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          className="flex flex-col gap-[30px] px-[20px] relative z-[99] pt-[100px] md:px-[100px]"
+          className="flex flex-col gap-[30px] px-[20px] relative z-[30] pt-[100px] md:px-[100px]"
         >
           <div className="md:max-w-[600px]">
             <motion.h2

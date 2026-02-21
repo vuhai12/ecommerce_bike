@@ -44,7 +44,7 @@ const reviews = [
 
 const Section5 = () => {
   return (
-    <div className="container mx-auto px-4 lg:px-0 py-16">
+    <div className="container  px-4 lg:px-0 py-16">
       <h3 className="text-2xl font-semibold text-[#23272F] mb-10">
         Ratings & Reviews
       </h3>
@@ -52,7 +52,7 @@ const Section5 = () => {
       {/* TOP SUMMARY */}
       <div className="flex flex-col lg:flex-row gap-12 mb-16">
         {/* Average Rating */}
-        <div className="flex flex-col items-center lg:items-start gap-3 lg:w-1/3">
+        <div className="flex flex-col items-center lg:items-start gap-3 flex-1">
           <div className="flex items-center gap-2">
             {[1, 2, 3, 4, 5].map((star) => (
               <svg
@@ -73,24 +73,10 @@ const Section5 = () => {
           <div className="text-gray-500 text-sm">
             Based on {totalReviews} reviews
           </div>
-
-          {/* Circle Rating */}
-          <div
-            className="w-[140px] h-[140px] rounded-full flex items-center justify-center relative mt-4"
-            style={{
-              background: `conic-gradient(#14C9C9 ${
-                (averageRating / 5) * 360
-              }deg, #E5E7EB 0deg)`,
-            }}
-          >
-            <div className="absolute w-[105px] h-[105px] bg-white rounded-full flex items-center justify-center text-2xl font-semibold">
-              {Math.round((averageRating / 5) * 100)}%
-            </div>
-          </div>
         </div>
 
         {/* Rating Breakdown */}
-        <div className="flex flex-col gap-4 lg:w-2/3">
+        <div className="flex flex-col gap-4 flex-[2]">
           {starOrder.map((star) => {
             const count = ratings[star] || 0;
             const percent = (count / totalReviews) * 100;
@@ -113,6 +99,21 @@ const Section5 = () => {
               </div>
             );
           })}
+        </div>
+        {/* Circle Rating */}
+        <div className="flex-1">
+          <div
+            className="w-[140px] h-[140px]  rounded-full flex items-center justify-center relative mt-4"
+            style={{
+              background: `conic-gradient(#14C9C9 ${
+                (averageRating / 5) * 360
+              }deg, #E5E7EB 0deg)`,
+            }}
+          >
+            <div className="absolute w-[105px] h-[105px] bg-white rounded-full flex items-center justify-center text-2xl font-semibold">
+              {Math.round((averageRating / 5) * 100)}%
+            </div>
+          </div>
         </div>
       </div>
 

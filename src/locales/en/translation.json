@@ -40,11 +40,17 @@
     "des": "Answer a few quick questions and we'll instantly recommend the best eBike for you. Get custom recommendations based on your height and riding needs."
   },
   "HeadingSection3": {
-    "title": "An Ebike for Every Type of Rider",
+    "title": {
+      "AnEbikefor": "An Ebike for",
+      "Every": "Every",
+      "Typeof": "Type of",
+      "Rider": "Rider"
+    },
+    "des": "Powerful, self-serve product and growth analytics to help you convert, engage, and retain more users. Trusted by over 4,000 startups.",
     "Explore": "Explore",
     "Bicycles": "Bicycles",
     "BestSeller": "Best Saleler",
-    "New Arrival": "New Arrival",
+    "NewArrival": "New Arrival",
     "AddToCart": "Add To Cart",
     "ViewAll": "View All"
   }

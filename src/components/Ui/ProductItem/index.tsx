@@ -4,6 +4,7 @@ import classNames from "classnames";
 import { Link, useNavigate } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
 import { ArrowUpRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const ProductItem = ({
   id,
@@ -21,6 +22,7 @@ const ProductItem = ({
   id: number;
 }) => {
   const [isLike, setIsLike] = useState(false);
+  const { t } = useTranslation();
   const navigate = useNavigate();
   return (
     <div className="flex flex-col h-full  w-full relative gap-[16px] p-[12px] border-[#EAECF0] border-[1px] rounded-[12px]">
@@ -61,7 +63,7 @@ const ProductItem = ({
         to={`/product/${id}`}
         className="text-black w-full flex items-center gap-[10px] justify-center rounded-[12px] py-[8px] text-[14px] font-semibold px-[14px] bg-[#E8FFFB] border-[1px] border-[#14C9C9]"
       >
-        Explore
+        {t("HeadingSection3.Explore")}
         <ArrowUpRight size={16} />
       </Link>
     </div>
