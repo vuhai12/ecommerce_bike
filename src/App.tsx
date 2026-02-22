@@ -11,10 +11,12 @@ import Register from "@pages/Register";
 import BlogPage from "@pages/BlogPage";
 import BlogList from "@pages/BlogList";
 import AboutUs from "@pages/AboutUs";
+import ScrollHandler from "@components/ScrollHandler";
 
 function App() {
   return (
     <>
+      <ScrollHandler />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/product/:id" element={<ProductDetail />} />
