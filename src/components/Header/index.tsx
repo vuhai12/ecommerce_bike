@@ -24,7 +24,7 @@ const Header = () => {
   };
 
   return (
-    <header className="w-full sticky top-0 z-50 bg-white shadow-sm">
+    <header className="w-full sticky top-0 z-[100] bg-white shadow-sm">
       {/* Top banner */}
       <div className="w-full bg-[#00424D] text-xs">
         <div className="max-w-[1200px] mx-auto px-4 py-2 flex justify-center items-center gap-2">
