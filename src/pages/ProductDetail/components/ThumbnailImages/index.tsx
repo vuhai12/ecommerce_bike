@@ -22,11 +22,15 @@ const ThumbnailImages = ({
                 "rounded-[12px]  overflow-hidden cursor-pointer",
                 item.image == imagePicked
                   ? "border-[2px] border-[#14C9C9]"
-                  : "border-[1px] border-[#EAECF0]"
+                  : "border-[1px] border-[#EAECF0]",
               )}
               onClick={() => setImagePiked(item.image)}
             >
-              <img src={item.image} className="w-full h-full object-cover" />
+              <img
+                src={item.image}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
             </div>
           );
         })}
@@ -40,13 +44,13 @@ const ThumbnailImages = ({
             onClick={() => setIsLike(!isLike)}
             className={classNames(
               `absolute cursor-pointer top-[10px] border-[1px] border-[#d8dadf] right-[10px] flex items-center justify-center rounded-[50%]  w-[36px] h-[36px]`,
-              isLike ? "bg-[#14C9C9]" : ""
+              isLike ? "bg-[#14C9C9]" : "",
             )}
           >
             <FaHeart
               className={classNames(
                 `w-[20px] h-[20px]`,
-                isLike ? "text-[#E8FFFB]" : "text-[#d8dbe2]"
+                isLike ? "text-[#E8FFFB]" : "text-[#d8dbe2]",
               )}
             />
           </div>

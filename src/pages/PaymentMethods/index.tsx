@@ -44,7 +44,7 @@ const PaymentMethods = () => {
                       {item.logo.map((item: any) => {
                         return (
                           <div className="border-[1px] border-[#D0D5DD] rounded-[2px] w-[35px] h-[24px] flex items-center justify-center">
-                            <img src={item} />
+                            <img src={item} loading="lazy" />
                           </div>
                         );
                       })}

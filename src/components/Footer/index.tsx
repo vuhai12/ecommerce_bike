@@ -24,7 +24,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 py-12 border-b border-[#98A2B3]">
           {/* Logo + Description */}
           <div className="flex flex-col gap-6 sm:col-span-2 lg:col-span-1">
-            <img src={logo} alt="logo" className="w-[140px]" />
+            <img src={logo} alt="logo" className="w-[140px]" loading="lazy" />
             <p className="text-[#98A2B3] text-sm leading-relaxed">
               Design amazing digital experiences that create more happy in the
               world.

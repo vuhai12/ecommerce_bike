@@ -81,6 +81,7 @@ const Section4 = () => {
           className="lg:w-1/2 w-full overflow-hidden"
         >
           <motion.img
+            loading="lazy"
             src={image1}
             alt=""
             className="w-full h-full object-cover"

@@ -69,6 +69,7 @@ const AboutUs = () => {
           className="w-full h-[350px] overflow-hidden"
         >
           <img
+            loading="lazy"
             src={image2}
             className="object-cover h-full object-center w-full"
             alt="About us"

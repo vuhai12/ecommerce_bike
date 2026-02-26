@@ -28,6 +28,7 @@ const ProductItem = ({
     <div className="flex flex-col h-full  w-full relative gap-[16px] p-[12px] border-[#EAECF0] border-[1px] rounded-[12px]">
       <div className="h-[226px] relative">
         <img
+          loading="lazy"
           src={image}
           alt="image"
           className="w-full h-full object-contain object-center"

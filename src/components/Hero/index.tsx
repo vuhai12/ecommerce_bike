@@ -24,15 +24,19 @@ const Hero = () => {
       transition={{ duration: 0.8 }}
       style={{
         width: `${contentWidth}px`,
-        backgroundImage: `url(${bgImgae})`,
+        // backgroundImage: `url(${bgImgae})`,
         marginLeft: `calc(50% - ${contentWidth / 2}px)`,
       }}
       className="relative h-[450px] md:min-h-[500px] bg-center bg-cover bg-no-repeat"
     >
+      <img
+        src={bgImgae}
+        className="w-full h-full object-cover absolute inset-0"
+      />
       {/* Overlay */}
       <div className="absolute top-0 left-0 h-full opacity-[50%] bg-[#000000] w-full"></div>
 
-      <div className="flex flex-col gap-[20px] text-white relative z-10 pt-[175px] max-w-[1200px] mx-auto px-[20px] md:px-[50px] xl:px-0 lg:px-[100px]">
+      <div className="flex flex-col gap-[20px] text-white relative z-[50] pt-[175px] max-w-[1200px] mx-auto px-[20px] md:px-[50px] xl:px-0 lg:px-[100px]">
         {/* Title */}
         <motion.h1
           initial={{ opacity: 0, y: 40 }}

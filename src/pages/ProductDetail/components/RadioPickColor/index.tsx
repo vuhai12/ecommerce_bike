@@ -16,7 +16,7 @@ const RadioPickColor = ({
   return (
     <label
       className={classNames(
-        "flex flex-col gap-[12px] items-center justify-center"
+        "flex flex-col gap-[12px] items-center justify-center",
       )}
     >
       <input
@@ -31,10 +31,14 @@ const RadioPickColor = ({
           "w-[80px] h-[60px] rounded-[12px]  overflow-hidden p-[5px]",
           colorPick == colorPicked
             ? "border-[#14C9C9] border-[2px]  "
-            : "border-[1px] border-[#EAECF0]"
+            : "border-[1px] border-[#EAECF0]",
         )}
       >
-        <img src={image} className="w-full h-full object-contain" />
+        <img
+          src={image}
+          className="w-full h-full object-contain"
+          loading="lazy"
+        />
       </div>
       <p className="text-[14px] text-black font-semibold">{price}</p>
     </label>

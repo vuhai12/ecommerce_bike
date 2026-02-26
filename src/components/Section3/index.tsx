@@ -89,6 +89,7 @@ const Section3 = () => {
             className="relative p-6 bg-gradient-to-b from-[#F9FAFB]/50 to-[#F9FAFB] rounded-2xl text-center"
           >
             <img
+              loading="lazy"
               src={item.image}
               className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2"
             />

@@ -38,6 +38,7 @@ const Section2 = () => {
 
         {/* Image with floating animation */}
         <motion.img
+          loading="lazy"
           src={imgBike}
           alt="Bike"
           initial={{ opacity: 0, scale: 0.9 }}

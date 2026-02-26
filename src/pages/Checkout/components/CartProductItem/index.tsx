@@ -21,7 +21,7 @@ const CartProductItem = ({
       title: string;
       price: string;
       color: string;
-    }[]
+    }[],
   ) => void;
   productsInCart: {
     id: number;
@@ -40,7 +40,7 @@ const CartProductItem = ({
   return (
     <div className="flex gap-[16px]  items-center py-[16px] flex-wrap">
       <div className="w-[120px] h-[120px]">
-        <img src={image} />
+        <img src={image} loading="lazy" />
       </div>
 
       <div className="flex flex-col gap-[10px] flex-1 ">

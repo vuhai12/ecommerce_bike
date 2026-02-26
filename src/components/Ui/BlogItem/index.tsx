@@ -19,7 +19,11 @@ const BlogItem = ({
       className="border-[1px] cursor-pointer w-full  flex gap-[5px] flex-col overflow-hidden border-gray-200 rounded-[12px]"
     >
       <div className="h-[238px]">
-        <img className="w-full h-full object-contain" src={image} />
+        <img
+          className="w-full h-full object-contain"
+          src={image}
+          loading="lazy"
+        />
       </div>
       <div className="flex flex-col gap-[12px] px-[16px] py-[20px]">
         <div className="flex justify-between">
