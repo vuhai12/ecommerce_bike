@@ -1,9 +1,9 @@
-import image1 from "@assets/Section6/image1.svg";
-import image2 from "@assets/Section6/image2.svg";
-import image3 from "@assets/Section6/image3.svg";
-import image4 from "@assets/Blogs/image4.jpg";
-import image5 from "@assets/Blogs/image5.jpg";
-import image6 from "@assets/Blogs/image6.jpg";
+import image1 from "@assets/Section6/image1.webp";
+import image2 from "@assets/Section6/image2.webp";
+import image3 from "@assets/Section6/image3.webp";
+import image4 from "@assets/Blogs/image4.webp";
+import image5 from "@assets/Blogs/image5.webp";
+import image6 from "@assets/Blogs/image6.webp";
 
 export const listBlogs = [
   {

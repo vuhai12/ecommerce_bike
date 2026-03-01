@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import image1 from "@assets/ProductDetail/Section6/image1.svg";
-import image2 from "@assets/ProductDetail/Section6/image2.svg";
-import image3 from "@assets/ProductDetail/Section6/image3.svg";
-import image4 from "@assets/ProductDetail/Section6/image4.svg";
-import image5 from "@assets/ProductDetail/Section6/image5.svg";
+import image1 from "@assets/ProductDetail/Section6/image1.webp";
+import image2 from "@assets/ProductDetail/Section6/image2.webp";
+import image3 from "@assets/ProductDetail/Section6/image3.webp";
+import image4 from "@assets/ProductDetail/Section6/image4.webp";
+import image5 from "@assets/ProductDetail/Section6/image5.webp";
 import ProductItem from "@components/Ui/ProductItem";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 

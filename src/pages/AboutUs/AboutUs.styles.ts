@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import image from "@assets/AboutUs/image6.jpg";
+import image from "@assets/AboutUs/image6.webp";
 
 export const Hero = styled.div`
   height: 500px;

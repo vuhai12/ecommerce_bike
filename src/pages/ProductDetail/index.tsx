@@ -11,10 +11,10 @@ import imageGreen1 from "@assets/ProductDetail/image-green-1.webp";
 import imageGreen2 from "@assets/ProductDetail/image-green-2.webp";
 import imageGreen3 from "@assets/ProductDetail/image-green-3.webp";
 import imageGreen4 from "@assets/ProductDetail/image-green-4.webp";
-import imageGreen5 from "@assets/ProductDetail/image-green-5.jpeg";
+import imageGreen5 from "@assets/ProductDetail/image-green-5.webp";
 import imageRed1 from "@assets/ProductDetail/image-red-1.webp";
 import imageRed2 from "@assets/ProductDetail/image-red-2.webp";
-import imageRed3 from "@assets/ProductDetail/image-red-3.jpeg";
+import imageRed3 from "@assets/ProductDetail/image-red-3.webp";
 import imageRed4 from "@assets/ProductDetail/image-red-4.webp";
 import imageRed5 from "@assets/ProductDetail/image-red-5.webp";
 import ProductLayout from "../../layouts/ProductLayout";
@@ -28,14 +28,14 @@ import Section7 from "./components/Section7";
 import Recommendation from "@components/Recommendation";
 import { useNavigate, useParams } from "react-router-dom";
 
-import image1 from "@assets/ProductList/Main/image1.svg";
-import image2 from "@assets/ProductList/Main/image2.svg";
-import image3 from "@assets/ProductList/Main/image3.svg";
-import image4 from "@assets/ProductList/Main/image4.svg";
-import image5 from "@assets/ProductList/Main/image5.svg";
-import image6 from "@assets/ProductList/Main/image6.svg";
-import image7 from "@assets/ProductList/Main/image7.svg";
-import image8 from "@assets/ProductList/Main/image8.svg";
+import image1 from "@assets/ProductList/Main/image1.webp";
+import image2 from "@assets/ProductList/Main/image2.webp";
+import image3 from "@assets/ProductList/Main/image3.webp";
+import image4 from "@assets/ProductList/Main/image4.webp";
+import image5 from "@assets/ProductList/Main/image5.webp";
+import image6 from "@assets/ProductList/Main/image6.webp";
+import image7 from "@assets/ProductList/Main/image7.webp";
+import image8 from "@assets/ProductList/Main/image8.webp";
 
 /* ================= DATA ================= */
 

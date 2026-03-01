@@ -1,6 +1,6 @@
-import image1 from "@assets/ProductDetail/Section7/image1.svg";
-import image2 from "@assets/ProductDetail/Section7/image2.svg";
-import image3 from "@assets/ProductDetail/Section7/image3.svg";
+import image1 from "@assets/ProductDetail/Section7/image1.webp";
+import image2 from "@assets/ProductDetail/Section7/image2.webp";
+import image3 from "@assets/ProductDetail/Section7/image3.webp";
 import BlogItem from "@components/Ui/BlogItem";
 
 const dataBlogs = [

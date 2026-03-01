@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import image1 from "@assets/Section3/image1.svg";
-import image2 from "@assets/Section3/image2.svg";
-import image3 from "@assets/Section3/image3.svg";
-import image4 from "@assets/Section3/image4.svg";
-import image8 from "@assets/Section3/image8.svg";
+import image1 from "@assets/Section3/image1.webp";
+import image2 from "@assets/Section3/image2.webp";
+import image3 from "@assets/Section3/image3.webp";
+import image4 from "@assets/Section3/image4.webp";
+import image8 from "@assets/Section3/image8.webp";
 import iconArraw from "@assets/Section3/icon-arrow-up-right.svg";
 import ProductItem from "@components/Ui/ProductItem";
 import classNames from "classnames";

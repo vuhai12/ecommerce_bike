@@ -1,4 +1,4 @@
-import imageHero from "@assets/ProductList/Hero/image-banner.jpg";
+import imageHero from "@assets/ProductList/Hero/image-banner.webp";
 
 const Hero = () => {
   return (

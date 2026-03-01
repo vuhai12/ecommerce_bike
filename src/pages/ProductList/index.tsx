@@ -4,14 +4,14 @@ import Hero from "./components/Hero";
 import Select from "@components/Select";
 import FilterProducts from "@components/FilterProducts";
 
-import image1 from "@assets/ProductList/Main/image1.svg";
-import image2 from "@assets/ProductList/Main/image2.svg";
-import image3 from "@assets/ProductList/Main/image3.svg";
-import image4 from "@assets/ProductList/Main/image4.svg";
-import image5 from "@assets/ProductList/Main/image5.svg";
-import image6 from "@assets/ProductList/Main/image6.svg";
-import image7 from "@assets/ProductList/Main/image7.svg";
-import image8 from "@assets/ProductList/Main/image8.svg";
+import image1 from "@assets/ProductList/Main/image1.webp";
+import image2 from "@assets/ProductList/Main/image2.webp";
+import image3 from "@assets/ProductList/Main/image3.webp";
+import image4 from "@assets/ProductList/Main/image4.webp";
+import image5 from "@assets/ProductList/Main/image5.webp";
+import image6 from "@assets/ProductList/Main/image6.webp";
+import image7 from "@assets/ProductList/Main/image7.webp";
+import image8 from "@assets/ProductList/Main/image8.webp";
 
 import ProductItem from "@components/Ui/ProductItem";
 import ProductLayout from "../../layouts/ProductLayout";

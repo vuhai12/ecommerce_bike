@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import image1 from "@assets/Section4/image1.svg";
-import image2 from "@assets/Section4/image2.svg";
+import image1 from "@assets/Section4/image1.webp";
+import image2 from "@assets/Section4/image2.webp";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 60 },

@@ -2,7 +2,7 @@ import MainLayout from "../../layouts/MainLayout";
 import { Hero } from "./AboutUs.styles";
 import { motion } from "framer-motion";
 import image2 from "@assets/AboutUs/image2.webp";
-import image3 from "@assets/AboutUs/image5.jpg";
+import image3 from "@assets/AboutUs/image5.webp";
 
 const AboutUs = () => {
   return (

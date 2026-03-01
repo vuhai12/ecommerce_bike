@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import imgBike from "@assets/Section2/image-bike.svg";
-import bgImage from "@assets/Section2/bg-image.svg";
+import bgImage from "@assets/Section2/bg-image.webp";
 import { useTranslation } from "react-i18next";
 
 const Section2 = () => {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import logo from "@assets/Header/logo.svg";
-import iconBike from "@assets/Header/icon-bike.svg";
+import iconBike from "@assets/Header/icon-bike.webp";
 import { UserIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
 import { Link, NavLink } from "react-router-dom";
 import { Menu, ChevronDown, Globe } from "lucide-react";

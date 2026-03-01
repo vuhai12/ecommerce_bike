@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import image1 from "@assets/Section5/image1.svg";
-import image2 from "@assets/Section5/image2.svg";
-import image3 from "@assets/Section5/image3.svg";
+import image1 from "@assets/Section5/image1.webp";
+import image2 from "@assets/Section5/image2.webp";
+import image3 from "@assets/Section5/image3.webp";
 import { Container, Wrapper } from "./Section5.styles";
-import imageBg from "@assets/Section5/bgImage.svg";
+import imageBg from "@assets/Section5/bgImage.webp";
 
 const dataSection5 = [
   {

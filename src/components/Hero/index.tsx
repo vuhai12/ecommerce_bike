@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import bgImgae from "@assets/Hero/bg-image.svg";
+import bgImgae from "@assets/Hero/bg-image.webp";
 import iconArow from "@assets/Hero/icon-arrow-up-right.svg";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";

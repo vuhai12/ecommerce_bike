@@ -46,7 +46,7 @@ const Section6 = () => {
   const handlePreNext = (flag: string) => {
     if (flag == "next") {
       setCurrent(
-        (pre) => (pre - 1 + dataSection6.length) % dataSection6.length
+        (pre) => (pre - 1 + dataSection6.length) % dataSection6.length,
       );
     }
 
