@@ -128,7 +128,7 @@ const Section5 = () => {
             transition={{ duration: 0.5 }}
             className="p-6 border rounded-2xl shadow-sm hover:shadow-md transition"
           >
-            <div className="flex justify-between items-center mb-2">
+            <div className="flex justify-between items-center mb-2 flex-col sm:flex-row">
               <h4 className="font-semibold">{review.name}</h4>
               <span className="text-sm text-gray-400">{review.date}</span>
             </div>

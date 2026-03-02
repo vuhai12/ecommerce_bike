@@ -52,13 +52,13 @@ const BoughtTogether = () => {
   const [listChecked, setListChecked] = useState<number[]>([]);
   return (
     <div className="flex p-[20px] max-w-[1200px] mx-auto rounded-[16px] border-[1px] gap-[20px] border-[#EAECF0] flex-col">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center md:flex-row flex-col">
         <h3 className="text-[20px] font-semibold text-black">
           Frequently bought together
         </h3>
         <p className="text-[14px] text-black underline">+2 more accessories</p>
       </div>
-      <div className="grid gap-[16px] lg:grid-cols-5 md:grid-cols-4 grid-cols-2">
+      <div className="grid gap-[16px] lg:grid-cols-5 md:grid-cols-4 grid-cols-1">
         {dataBoughtTogethers.map((item, _) => {
           return (
             <div className="flex flex-col gap-[12px] ">
@@ -103,7 +103,7 @@ const BoughtTogether = () => {
           </div>
         </div>
         <div>
-          <button className="rounded-[12px] px-[18px] py-[10px] flex gap-[8px] text-[16px] text-white bg-[#14C9C9]">
+          <button className="rounded-[12px] px-[18px] md:flex-row py-[10px] flex flex-col gap-[8px] text-[16px] text-white bg-[#14C9C9]">
             <img src={iconCart} />
             <p className="">Add 3 items to cart</p>
           </button>

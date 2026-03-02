@@ -13,8 +13,8 @@ const ThumbnailImages = ({
 }) => {
   const [isLike, setIsLike] = useState(false);
   return (
-    <div className="flex md:gap-[24px] md:flex-row flex-col-reverse gap-[20px]">
-      <div className="flex flex-row gap-[20px]  md:flex-col md:gap-[16px] md:w-[60px]">
+    <div className="flex md:gap-[24px] md:flex-row flex-col-reverse gap-[20px] ">
+      <div className="flex flex-row gap-[10px] w-1/4 flex-wrap md:flex-col md:gap-[16px] md:w-[60px]">
         {listImage.map((item: { id: number; image: string }, _: any) => {
           return (
             <div

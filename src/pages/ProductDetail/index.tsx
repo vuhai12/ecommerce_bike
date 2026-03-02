@@ -170,7 +170,7 @@ const ProductDetail = () => {
             initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            className="w-full lg:w-1/2"
+            className="w-full lg:w-1/2 "
           >
             {thumbnailImagesData.map((item) =>
               colorPicked === item.color ? (
@@ -208,7 +208,7 @@ const ProductDetail = () => {
               <span className="font-semibold">{colorPicked}</span>
             </p>
 
-            <div className="flex gap-4 flex-wrap">
+            <div className="flex gap-4 flex-wrap ">
               {thumbnailImagesData.map((item) => (
                 <RadioPickColor
                   key={item.id}
@@ -242,7 +242,7 @@ const ProductDetail = () => {
               </motion.button>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 pt-4">
+            <div className="grid grid-cols-1  sm:grid-cols-3 lg:grid-cols-5 gap-6 pt-4">
               {featureHighlights.map((item, index) => (
                 <motion.div
                   key={item.id}

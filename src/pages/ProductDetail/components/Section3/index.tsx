@@ -50,7 +50,10 @@ const Section3 = () => {
       <div className="container grid md:grid-cols-3 grid-cols-1 md:justify-items-start justify-items-center text-center gap-y-[48px] p-[50px]">
         {dataSection3.map((item, _) => {
           return (
-            <div key={item.id} className="flex gap-[20px] items-center">
+            <div
+              key={item.id}
+              className="flex gap-[20px] items-center md:flex-row flex-col"
+            >
               <img src={item.icon} />
               <div className="flex flex-col gap-[4px] flex-1">
                 <h2 className="text-[30px] text-[#E8FFFB] font-semibold">
