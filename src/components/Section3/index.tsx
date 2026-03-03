@@ -77,7 +77,7 @@ const Section3 = () => {
       </motion.div>
 
       {/* BRAND CARDS */}
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-[100px] lg:gap-8">
         {dataSection3.map((item, index) => (
           <motion.div
             key={item.id}
