@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 
 const ProductLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="">
+    <div>
       <Header />
       <div className="container px-[20px] md:px-0">
         {/* <HeaderProduct /> */}

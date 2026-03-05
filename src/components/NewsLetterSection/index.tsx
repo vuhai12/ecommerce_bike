@@ -1,7 +1,7 @@
 const NewsLetterSection = () => {
   return (
     <section className="relative z-30 mt-16 mb-[-100px] px-4 sm:px-6 lg:px-0">
-      <div className="max-w-[1200px] mx-auto">
+      <div className="container">
         <div className="rounded-2xl bg-[#14C9C9] p-6 sm:p-10 lg:p-16 flex flex-col lg:flex-row gap-10">
           {/* Left Content */}
           <div className="flex flex-col gap-4 flex-1 text-center lg:text-left">
