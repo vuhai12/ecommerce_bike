@@ -102,12 +102,10 @@ const BoughtTogether = () => {
             <p className="text-[18px] text-black font-semibold">2 Add-ons</p>
           </div>
         </div>
-        <div>
-          <button className="rounded-[12px] px-[18px] md:flex-row py-[10px] flex flex-col gap-[8px] text-[16px] text-white bg-[#14C9C9]">
-            <img src={iconCart} />
-            <p className="">Add 3 items to cart</p>
-          </button>
-        </div>
+        <button className="rounded-[12px] px-[18px] w-fit items-center py-[10px] flex  gap-[8px] text-[16px] text-white bg-[#14C9C9]">
+          <img src={iconCart} className="w-[20px]" />
+          <p>Add 3 items to cart</p>
+        </button>
       </div>
     </div>
   );
