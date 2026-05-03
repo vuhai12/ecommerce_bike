@@ -1,0 +1,63 @@
+{
+  "menu": {
+    "home": "Home",
+    "ebikes": "Ebikes",
+    "blog": "Blog",
+    "about": "About us"
+  },
+  "banner": {
+    "top": "Amazing discounts on top-quality Ebike!",
+    "buyNow": "Buy Now",
+    "title": "EMotorad X2 Unisex Mountain Electric Cycle - $1999.99 ($300 OFF)",
+    "titleBanner": "Aventure.2 Ebike",
+    "desBanner": "The power of wildest dreams"
+  },
+  "hightLight": {
+    "CustomerServed": {
+      "title": "Customer Served",
+      "des": "We offer emission-free local travel, Not only doing something good."
+    },
+    "Reviews": {
+      "title": "Reviews",
+      "des": "Simply book using our super app, choose your destination."
+    },
+    "Certifications": {
+      "title": "Certifications",
+      "des": "Know your travel cost in advance then you can simply pay it."
+    },
+    "ValueProposition": {
+      "title": "Value Proposition",
+      "des": "We offer emission-free local travel, Not only doing something good."
+    }
+  },
+  "HeadLine": {
+    "title": {
+      "Findyour": "Find your",
+      "perfect": "perfect",
+      "Ebikeinlessthan": "Ebike in less than",
+      "3minutes": "3 minutes"
+    },
+    "des": "Answer a few quick questions and we'll instantly recommend the best eBike for you. Get custom recommendations based on your height and riding needs."
+  },
+  "HeadingSection3": {
+    "title": {
+      "AnEbikefor": "An Ebike for",
+      "Every": "Every",
+      "Typeof": "Type of",
+      "Rider": "Rider"
+    },
+    "des": "Powerful, self-serve product and growth analytics to help you convert, engage, and retain more users. Trusted by over 4,000 startups.",
+    "Explore": "Explore",
+    "Bicycles": "Bicycles",
+    "best-seller": "Best Seller",
+    "NewArrival": "New Arrival",
+    "AddToCart": "Add To Cart",
+    "ViewAll": "View All"
+  },
+  "Select": {
+    "best-seller": "Best Seller",
+    "new-arrival": "New Arrival",
+    "price-asc": "Price: Low to High",
+    "price-desc": "Price: High to Low"
+  }
+}

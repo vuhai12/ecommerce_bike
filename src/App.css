@@ -1,0 +1,91 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  body {
+    margin: 0;
+    padding: 0px;
+    overflow-x: hidden;
+    @apply font-inter;
+  }
+  html {
+    overflow-x: hidden;
+  }
+
+  .custom-price-slider .rc-slider-track {
+    background-color: #14c9c9 !important;
+    height: 6px !important;
+  }
+
+  .custom-price-slider .rc-slider-rail {
+    background-color: #e5e7eb !important;
+    height: 6px !important;
+  }
+
+  .custom-price-slider .rc-slider-handle {
+    width: 18px !important;
+    height: 18px !important;
+    margin-top: -6px !important;
+    border: 2px solid #14c9c9 !important;
+    background-color: #ffffff !important;
+    opacity: 1 !important;
+    box-shadow: none !important;
+  }
+
+  .custom-price-slider .rc-slider-handle:hover,
+  .custom-price-slider .rc-slider-handle:focus,
+  .custom-price-slider .rc-slider-handle:active,
+  .custom-price-slider .rc-slider-handle:focus-visible {
+    border-color: #14c9c9 !important;
+    box-shadow: none !important;
+    outline: none !important;
+  }
+
+  .custom-price-slider
+    .rc-slider-handle-dragging.rc-slider-handle-dragging.rc-slider-handle-dragging {
+    border-color: #14c9c9 !important;
+    box-shadow: none !important;
+  }
+}
+
+@layer components {
+  .section-2 span.ml-4 {
+    display: none !important;
+  }
+  .hide-scrollbar {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none !important;
+  }
+  .no-scroll {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+  }
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+}
+
+@layer utilities {
+}
