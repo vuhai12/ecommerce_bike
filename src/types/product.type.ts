@@ -1,3 +1,12 @@
+export type ProductFormType = {
+  title: string;
+  stock: number;
+  description: string;
+  categoryHandle: "comfort" | "light-trail" | "full-suspension";
+  price: number;
+  image?: File | undefined;
+};
+
 export interface Product {
   id: string;
   title: string;
@@ -20,6 +29,11 @@ export interface Product {
 export interface ProductResponse {
   success: boolean;
   products: Product[];
+}
+
+export interface ProductUpateResponse {
+  success: boolean;
+  product: Product;
 }
 
 export interface ProductImage {

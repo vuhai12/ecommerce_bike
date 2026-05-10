@@ -1,9 +1,14 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { fetchProducts } from "../../features/products/productSlice";
+import {
+  addProduct,
+  deleteProduct,
+  fetchProducts,
+  updateProduct,
+} from "../../features/products/productSlice";
 import React, { useEffect, useState } from "react";
 import Popup from "@components/Popup";
 import ProductForm from "./components/ProductForm";
-import { Product } from "../../types/product.type";
+import { Product, ProductFormType } from "../../types/product.type";
 import {
   Pencil,
   Trash2,
@@ -11,20 +16,37 @@ import {
   ArrowUpDown,
   ChevronsUpDown,
 } from "lucide-react";
+import ProductSkeletonTable from "@components/ProductSkeletonTable";
+import { importCsvApi } from "../../services/products/productApi";
+import { useDebound } from "../../customHooks/useDebound";
 
 const ProductManagement = () => {
   const dispatch = useAppDispatch();
   const { list, loading, error } = useAppSelector((state) => state.products);
   const [isOpen, setIsOpen] = useState(false);
 
+  const [searchParam, setSearchPram] = useState("");
+
+  const searchDebond = useDebound(searchParam, 2000);
+
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
 
-  console.log("list", list);
   useEffect(() => {
-    dispatch(fetchProducts({}));
-  }, []);
+    dispatch(fetchProducts({ search: searchParam }));
+  }, [searchDebond]);
 
-  const onSubmit = () => {};
+  const onSubmit = async (dataProduct: ProductFormType) => {
+    if (editingProduct) {
+      await dispatch(
+        updateProduct({ id: editingProduct.id, payload: dataProduct }),
+      );
+    } else {
+      await dispatch(addProduct(dataProduct));
+    }
+
+    await dispatch(fetchProducts({}));
+    onCancel();
+  };
 
   console.log("list", list);
 
@@ -39,6 +61,23 @@ const ProductManagement = () => {
   };
 
   console.log("list.len", list.length);
+
+  const handleDelete = async (id: string) => {
+    await dispatch(deleteProduct(id));
+    await dispatch(fetchProducts({}));
+  };
+
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
+
+  const handleSort = (sortBy: string, sortOrder: string) => {
+    setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"));
+    dispatch(
+      fetchProducts({
+        sortBy: sortBy,
+        sortOrder,
+      }),
+    );
+  };
   return (
     <div className="mt-[30px] ">
       <div className="flex justify-between">
@@ -52,9 +91,22 @@ const ProductManagement = () => {
           </button>
         </div>
         <div className="flex gap-[20px] items-center">
-          <button className="rounded-[10px] py-[10px] px-[20px] bg-[#14c9c9] text-white flex items-center gap-[10px]">
-            Import
-          </button>
+          <label className="rounded-[10px] py-[10px] px-[20px] bg-[#14c9c9] text-white flex items-center gap-[10px]">
+            <span>Import</span>
+            <input
+              className="hidden"
+              type="file"
+              accept=".csv"
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (!file) return;
+
+                importCsvApi(file).then(() => {
+                  dispatch(fetchProducts({}));
+                });
+              }}
+            />
+          </label>
           <button className="rounded-[10px] py-[10px] px-[20px] bg-[#120460] text-white flex items-center gap-[10px]">
             <a href="/api/export-csv">Export CSV</a>
           </button>
@@ -66,6 +118,8 @@ const ProductManagement = () => {
             Download CSV
           </a>
           <input
+            value={searchParam}
+            onChange={(e) => setSearchPram(e.target.value)}
             placeholder="search"
             className="rounded-[10px] border-[1px] border-gray-300 outline-none py-[10px] px-[20px] min-w-[150px]"
           />
@@ -80,22 +134,38 @@ const ProductManagement = () => {
               <th className="py-3 px-2 w-[100px]">Image</th>
               <th className="py-3 px-2 w-[100px]">
                 <div className="flex items-center justify-center gap-[20px]">
-                  <span>Name</span> <ChevronsUpDown size={16} />
+                  <span>Name</span>{" "}
+                  <ChevronsUpDown
+                    size={16}
+                    onClick={() => handleSort("title", sortOrder)}
+                  />
                 </div>
               </th>
               <th className="py-3 px-2 w-[100px] ">
                 <div className="flex items-center justify-center gap-[20px]">
-                  <span>Price</span> <ChevronsUpDown size={16} />
+                  <span>Price</span>{" "}
+                  <ChevronsUpDown
+                    size={16}
+                    onClick={() => handleSort("price", sortOrder)}
+                  />
                 </div>
               </th>
               <th className="py-3 px-2 w-[100px]">
                 <div className="flex items-center justify-center gap-[20px]">
-                  <span>Category</span> <ChevronsUpDown size={16} />
+                  <span>Category</span>{" "}
+                  <ChevronsUpDown
+                    size={16}
+                    onClick={() => handleSort("category", sortOrder)}
+                  />
                 </div>
               </th>
               <th className="py-3 px-2 w-[100px]">
                 <div className="flex items-center justify-center gap-[20px]">
-                  <span>Stock</span> <ChevronsUpDown size={16} />
+                  <span>Stock</span>{" "}
+                  <ChevronsUpDown
+                    size={16}
+                    onClick={() => handleSort("stock", sortOrder)}
+                  />
                 </div>
               </th>
               <th className="py-3 px-2 w-[200px]">Action</th>
@@ -112,7 +182,10 @@ const ProductManagement = () => {
               </tr>
             )}
 
+            {loading && <ProductSkeletonTable />}
+
             {list.length > 0 &&
+              !loading &&
               list.map((item, index) => {
                 return (
                   <tr
@@ -134,7 +207,7 @@ const ProductManagement = () => {
                       {item.price}
                     </td>
                     <td className="text-center py-6 text-gray-500">
-                      {item.category.title}
+                      {item.category?.title}
                     </td>
                     <td className="text-center py-6 text-gray-500">
                       {item.stock}
@@ -148,6 +221,7 @@ const ProductManagement = () => {
                         />
 
                         <Trash2
+                          onClick={() => handleDelete(item.id)}
                           size={18}
                           className="text-red-500 cursor-pointer"
                         />

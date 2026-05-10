@@ -1,4 +1,5 @@
 import dotenv from "dotenv";
+
 dotenv.config();
 
 export default async function handler(req, res) {
@@ -12,21 +13,28 @@ export default async function handler(req, res) {
   try {
     const {
       collectionHandle = "",
+
+      // SEARCH
+      search = "",
+
+      // SORT
       tabKey = "best-seller",
-      first = 8,
+
+      // PAGINATION
+      limit = 8,
+      pageCurrent = 1,
+      sortBy,
+      sortOrder,
+
+      // PRICE FILTER
       minPrice,
       maxPrice,
     } = req.body || {};
 
-    if (!tabKey) {
-      return res.status(400).json({
-        success: false,
-        message: "Thiếu collectionHandle hoặc tabKey",
-      });
-    }
-
     const SHOPIFY_STORE_DOMAIN = process.env.SHOPIFY_STORE_DOMAIN;
+
     const SHOPIFY_ADMIN_TOKEN = process.env.SHOPIFY_ADMIN_TOKEN;
+
     const SHOPIFY_API_VERSION = process.env.SHOPIFY_API_VERSION;
 
     if (!SHOPIFY_STORE_DOMAIN || !SHOPIFY_ADMIN_TOKEN) {
@@ -36,125 +44,48 @@ export default async function handler(req, res) {
       });
     }
 
-    const tabMap = {
-      "best-seller": {
-        sortKey: "BEST_SELLING",
-        reverse: false,
-      },
-      "price-asc": {
-        sortKey: "PRICE",
-        reverse: false,
-      },
-      "price-desc": {
-        sortKey: "PRICE",
-        reverse: true,
-      },
-      "new-arrival": {
-        sortKey: "CREATED",
-        reverse: true,
-      },
-    };
+    // =========================================
+    // SEARCH QUERY
+    // =========================================
 
-    const currentTab = tabMap[tabKey];
+    let searchQuery = "";
 
-    if (!currentTab) {
-      return res.status(400).json({
-        success: false,
-        message: "tabKey không hợp lệ",
-      });
+    if (search?.trim()) {
+      const keyword = search.trim();
+
+      // Full Suspension -> full-suspension
+
+      const handleKeyword = keyword.toLowerCase().replace(/\s+/g, "-");
+
+      searchQuery = `
+        title:*${keyword}*
+        OR
+        collection:${handleKeyword}
+      `;
     }
-    const isGetAllProducts = !collectionHandle;
-    let query;
-    let variables;
 
-    if (isGetAllProducts) {
-      query = `
-    query GetAllProducts(
-      $first: Int!,
-      $sortKey: ProductSortKeys!,
-      $reverse: Boolean!
-    ) {
-      products(first: $first, sortKey: $sortKey, reverse: $reverse) {
-        edges {
-          node {
-            id
-            title
-            handle
-            descriptionHtml
-            collections(first: 5) {
-              edges {
-                node {
-                  id
-                  title
-                  handle
-                }
-              }
-            }
-            variants(first: 1) {
-              edges {
-                node {
-                  inventoryQuantity
-                }
-              }
-            }
-            featuredImage {
-              url
-              altText
-            }
-            images(first: 5) {
-              edges {
-                node {
-                  url
-                  altText
-                }
-              }
-            }
-            priceRangeV2 {
-              minVariantPrice {
-                amount
-                currencyCode
-              }
-            }
-            averageRating: metafield(namespace: "custom", key: "average_rating") {
-              value
-            }
-            reviewCount: metafield(namespace: "custom", key: "review_count") {
-              value
-            }
-          }
-        }
-      }
-    }
-  `;
-      let sortKey = currentTab.sortKey;
-      if (sortKey === "BEST_SELLING") {
-        sortKey = "CREATED_AT"; // hoặc TITLE
-      }
+    // =========================================
+    // GRAPHQL
+    // =========================================
 
-      variables = {
-        first: Number(first),
-        sortKey,
-        reverse: currentTab.reverse,
-      };
-    } else {
-      query = `
-    query GetCollectionProducts(
-      $handle: String!,
-      $first: Int!,
-      $sortKey: ProductCollectionSortKeys!,
-      $reverse: Boolean!
-    ) {
-      collectionByIdentifier(identifier: { handle: $handle }) {
-        id
-        title
-        handle
-        products(first: $first, sortKey: $sortKey, reverse: $reverse) {
+    const query = `
+      query GetProducts(
+        $first: Int!,
+        $query: String
+      ) {
+        products(
+          first: $first,
+          query: $query
+        ) {
           edges {
             node {
               id
               title
               handle
               descriptionHtml
+
+              createdAt
+
               collections(first: 5) {
                 edges {
                   node {
@@ -164,17 +95,12 @@ export default async function handler(req, res) {
                   }
                 }
               }
-              variants(first: 1) {
-                edges {
-                  node {
-                    inventoryQuantity
-                  }
-                }
-              }
+
               featuredImage {
                 url
                 altText
               }
+
               images(first: 5) {
                 edges {
                   node {
@@ -183,107 +109,76 @@ export default async function handler(req, res) {
                   }
                 }
               }
+
+              variants(first: 1) {
+                edges {
+                  node {
+                    id
+
+                    inventoryItem {
+                      id
+
+                      inventoryLevels(first: 1) {
+                        edges {
+                          node {
+                            quantities(names: ["available"]) {
+                              name
+                              quantity
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+
               priceRangeV2 {
                 minVariantPrice {
                   amount
                   currencyCode
                 }
               }
-              averageRating: metafield(namespace: "custom", key: "average_rating") {
+
+              averageRating: metafield(
+                namespace: "custom",
+                key: "average_rating"
+              ) {
                 value
               }
-              reviewCount: metafield(namespace: "custom", key: "review_count") {
+
+              reviewCount: metafield(
+                namespace: "custom",
+                key: "review_count"
+              ) {
                 value
               }
             }
           }
         }
       }
-    }
-  `;
+    `;
 
-      variables = {
-        handle: collectionHandle,
-        first: Number(first),
-        sortKey: currentTab.sortKey,
-        reverse: currentTab.reverse,
-      };
-    }
+    const variables = {
+      first: 250,
+      query: searchQuery || undefined,
+    };
 
-    // const query = `
-    //       query GetCollectionProducts(
-    //         $handle: String!,
-    //         $first: Int!,
-    //         $sortKey: ProductCollectionSortKeys!,
-    //         $reverse: Boolean!
-    //       ) {
-    //         collectionByIdentifier(identifier: { handle: $handle }) {
-    //           id
-    //           title
-    //           handle
-
-    //           products(first: $first, sortKey: $sortKey, reverse: $reverse) {
-    //             edges {
-    //               node {
-    //                 id
-    //                 title
-    //                 handle
-    // descriptionHtml
-    //                 collections(first: 5) {
-    //     edges {
-    //       node {
-    //         id
-    //         title
-    //         handle
-    //       }
-    //     }
-    //   }
-    //                 variants(first: 1) {
-    //     edges {
-    //       node {
-    //         inventoryQuantity
-    //       }
-    //     }
-    //   }
-    //                 featuredImage {
-    //                   url
-    //                   altText
-    //                 }
-    //                    images(first: 5) {
-    //               edges {
-    //                 node {
-    //                   url
-    //                   altText
-    //                 }
-    //               }
-    //             }
-    //                 priceRangeV2 {
-    //                   minVariantPrice {
-    //                     amount
-    //                     currencyCode
-    //                   }
-    //                 }
-    //                   averageRating: metafield(namespace: "custom", key: "average_rating") {
-    //   value
-    // }
-    // reviewCount: metafield(namespace: "custom", key: "review_count") {
-    //   value
-    // }
-    //               }
-    //             }
-    //           }
-    //         }
-    //       }
-    //     `;
+    // =========================================
+    // SHOPIFY FETCH
+    // =========================================
 
     const shopifyRes = await fetch(
       `https://${SHOPIFY_STORE_DOMAIN}/admin/api/${SHOPIFY_API_VERSION}/graphql.json`,
       {
         method: "POST",
+
         headers: {
           "Content-Type": "application/json",
+
           "X-Shopify-Access-Token": SHOPIFY_ADMIN_TOKEN,
         },
+
         body: JSON.stringify({
           query,
           variables,
@@ -296,70 +191,84 @@ export default async function handler(req, res) {
     if (!shopifyRes.ok || result.errors) {
       return res.status(500).json({
         success: false,
-        message: "Lỗi khi gọi Shopify Admin API",
+        message: "Lỗi Shopify API",
         errors: result.errors || result,
       });
     }
 
-    // const collection = result?.data?.collectionByIdentifier;
+    // =========================================
+    // RAW PRODUCTS
+    // =========================================
 
-    // if (!collection) {
-    //   return res.status(404).json({
-    //     success: false,
-    //     message: `Không tìm thấy collection: ${collectionHandle}`,
-    //   });
-    // }
-    let rawProducts = [];
-    let collection = null;
+    const rawProducts = result?.data?.products?.edges || [];
 
-    if (isGetAllProducts) {
-      rawProducts = result?.data?.products?.edges || [];
-    } else {
-      collection = result?.data?.collectionByIdentifier;
+    // =========================================
+    // FORMAT PRODUCTS
+    // =========================================
 
-      if (!collection) {
-        return res.status(404).json({
-          success: false,
-          message: `Không tìm thấy collection: ${collectionHandle}`,
-        });
-      }
-
-      rawProducts = collection?.products?.edges || [];
-    }
-
-    const products =
+    let products =
       rawProducts.map((item) => ({
         id: item.node.id,
+
         title: item.node.title,
+
         handle: item.node.handle,
+
+        createdAt: item.node.createdAt,
+
         descriptionHtml: item.node.descriptionHtml || "",
+
         category: item.node.collections?.edges?.[0]
           ? {
               id: item.node.collections.edges[0].node.id,
+
               title: item.node.collections.edges[0].node.title,
+
               handle: item.node.collections.edges[0].node.handle,
             }
-          : collection
-            ? {
-                id: collection.id,
-                title: collection.title,
-                handle: collection.handle,
-              }
-            : null,
+          : null,
+
         image: item.node.featuredImage?.url || "",
+
         altText: item.node.featuredImage?.altText || "",
-        stock: item.node.variants?.edges?.[0]?.node?.inventoryQuantity || 0,
+
+        stock:
+          item.node.variants?.edges?.[0]?.node?.inventoryItem?.inventoryLevels
+            ?.edges?.[0]?.node?.quantities?.[0]?.quantity || 0,
+
         images:
           item.node.images?.edges?.map((img) => ({
             url: img.node.url,
+
             altText: img.node.altText || "",
           })) || [],
+
         price: Number(item.node.priceRangeV2?.minVariantPrice?.amount || 0),
+
         currencyCode:
           item.node.priceRangeV2?.minVariantPrice?.currencyCode || "",
+
         averageRating: Number(item.node.averageRating?.value || 0),
+
         reviewCount: Number(item.node.reviewCount?.value || 0),
       })) || [];
+
+    // =========================================
+    // FILTER CATEGORY
+    // =========================================
+
+    if (collectionHandle?.trim()) {
+      products = products.filter((product) => {
+        return (
+          product.category?.handle?.toLowerCase() ===
+          collectionHandle.toLowerCase()
+        );
+      });
+    }
+
+    // =========================================
+    // FILTER PRICE
+    // =========================================
 
     const hasPriceFilter =
       minPrice !== undefined &&
@@ -367,28 +276,138 @@ export default async function handler(req, res) {
       maxPrice !== undefined &&
       maxPrice !== null;
 
-    const filteredProducts = hasPriceFilter
-      ? products.filter((product) => {
-          return (
-            product.price >= Number(minPrice) &&
-            product.price <= Number(maxPrice)
-          );
-        })
-      : products;
+    if (hasPriceFilter) {
+      products = products.filter((product) => {
+        return (
+          product.price >= Number(minPrice) && product.price <= Number(maxPrice)
+        );
+      });
+    }
+
+    // =========================================
+    // SORT
+    // =========================================
+
+    switch (tabKey) {
+      case "price-asc":
+        products.sort((a, b) => a.price - b.price);
+        break;
+
+      case "price-desc":
+        products.sort((a, b) => b.price - a.price);
+        break;
+
+      case "new-arrival":
+        products.sort(
+          (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+        );
+        break;
+
+      case "best-seller":
+      default:
+        // fake best seller theo reviewCount
+        products.sort((a, b) => b.reviewCount - a.reviewCount);
+        break;
+    }
+
+    if (sortBy) {
+      switch (sortBy) {
+        // =========================
+        // TITLE
+        // =========================
+
+        case "title":
+          products.sort((a, b) => {
+            return sortOrder === "asc"
+              ? a.title.localeCompare(b.title)
+              : b.title.localeCompare(a.title);
+          });
+
+          break;
+
+        // =========================
+        // CATEGORY
+        // =========================
+
+        case "category":
+          products.sort((a, b) => {
+            const categoryA = a.category?.title || "";
+
+            const categoryB = b.category?.title || "";
+
+            return sortOrder === "asc"
+              ? categoryA.localeCompare(categoryB)
+              : categoryB.localeCompare(categoryA);
+          });
+
+          break;
+
+        // =========================
+        // PRICE
+        // =========================
+
+        case "price":
+          products.sort((a, b) => {
+            return sortOrder === "asc" ? a.price - b.price : b.price - a.price;
+          });
+
+          break;
+
+        // =========================
+        // STOCK
+        // =========================
+
+        case "stock":
+          products.sort((a, b) => {
+            return sortOrder === "asc" ? a.stock - b.stock : b.stock - a.stock;
+          });
+
+          break;
+
+        default:
+          break;
+      }
+    }
+
+    // =========================================
+    // PAGINATION
+    // =========================================
+
+    const totalProducts = products.length;
+
+    const totalPages = Math.ceil(totalProducts / Number(limit));
+
+    const startIndex = (Number(pageCurrent) - 1) * Number(limit);
+
+    const endIndex = startIndex + Number(limit);
+
+    const paginatedProducts = products.slice(startIndex, endIndex);
+
+    // =========================================
+    // RESPONSE
+    // =========================================
 
     return res.status(200).json({
       success: true,
-      collection: collection
-        ? {
-            id: collection.id,
-            title: collection.title,
-            handle: collection.handle,
-          }
-        : null,
-      tabKey,
-      products: filteredProducts,
+
+      search,
+
+      collectionHandle,
+
+      totalProducts,
+
+      totalPages,
+
+      currentPage: Number(pageCurrent),
+
+      limit: Number(limit),
+
+      products: paginatedProducts,
     });
   } catch (error) {
+    console.log(error);
+
     return res.status(500).json({
       success: false,
       message: "Server error",

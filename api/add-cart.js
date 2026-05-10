@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({
@@ -8,13 +11,6 @@ export default async function handler(req, res) {
 
   try {
     const { cartId, lines } = req.body;
-
-    // lines là danh sách món muốn add
-    // ví dụ:
-    // [
-    //   { merchandiseId: "gid://shopify/ProductVariant/1", quantity: 1 },
-    //   { merchandiseId: "gid://shopify/ProductVariant/2", quantity: 1 }
-    // ]
 
     if (!lines || !Array.isArray(lines) || lines.length === 0) {
       return res.status(400).json({

@@ -11,9 +11,9 @@ export const config = {
 };
 
 cloudinary.config({
-  cloud_name: "dlpzfjgbd",
-  api_key: "843789176218748",
-  api_secret: "UaoKqy2oSlSiw78I4rQiuSremCw",
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 const parseForm = (req) => {
@@ -43,6 +43,10 @@ export default async function handler(req, res) {
     });
   }
 
+  const SHOPIFY_STORE_DOMAIN = process.env.SHOPIFY_STORE_DOMAIN;
+  const SHOPIFY_ADMIN_TOKEN = process.env.SHOPIFY_ADMIN_TOKEN;
+  const SHOPIFY_API_VERSION = process.env.SHOPIFY_API_VERSION;
+
   try {
     const { fields, files } = await parseForm(req);
 
@@ -50,7 +54,7 @@ export default async function handler(req, res) {
     const price = getFieldValue(fields.price);
     const stock = getFieldValue(fields.stock) || 0;
     const description = getFieldValue(fields.description) || "";
-    const categoryHandle = getFieldValue(fields.categoryHandle);
+    const collectionHandle = getFieldValue(fields.collectionHandle);
 
     const imageFile = Array.isArray(files.image) ? files.image[0] : files.image;
 
@@ -58,6 +62,13 @@ export default async function handler(req, res) {
       return res.status(400).json({
         success: false,
         message: "Thiếu title hoặc price",
+      });
+    }
+
+    if (!SHOPIFY_STORE_DOMAIN || !SHOPIFY_ADMIN_TOKEN) {
+      return res.status(500).json({
+        success: false,
+        message: "Thiếu SHOPIFY_STORE_DOMAIN hoặc SHOPIFY_ADMIN_TOKEN",
       });
     }
 
@@ -73,17 +84,6 @@ export default async function handler(req, res) {
       );
 
       imageUrl = uploadResult.secure_url;
-
-      const SHOPIFY_STORE_DOMAIN = process.env.SHOPIFY_STORE_DOMAIN;
-      const SHOPIFY_ADMIN_TOKEN = process.env.SHOPIFY_ADMIN_TOKEN;
-      const SHOPIFY_API_VERSION = process.env.SHOPIFY_API_VERSION;
-    }
-
-    if (!SHOPIFY_STORE_DOMAIN || !SHOPIFY_ADMIN_TOKEN) {
-      return res.status(500).json({
-        success: false,
-        message: "Thiếu SHOPIFY_STORE_DOMAIN hoặc SHOPIFY_ADMIN_TOKEN",
-      });
     }
 
     const endpoint = `https://${SHOPIFY_STORE_DOMAIN}/admin/api/${SHOPIFY_API_VERSION}/graphql.json`;
@@ -111,6 +111,7 @@ export default async function handler(req, res) {
       return data;
     };
 
+    // 1. Lấy location
     const getLocationsQuery = `
       query GetLocations {
         locations(first: 10) {
@@ -144,6 +145,7 @@ export default async function handler(req, res) {
       });
     }
 
+    // 2. Tạo product
     const productCreateMutation = `
       mutation ProductCreate($input: ProductInput!, $media: [CreateMediaInput!]) {
         productCreate(input: $input, media: $media) {
@@ -170,6 +172,9 @@ export default async function handler(req, res) {
                   title
                   price
                   inventoryQuantity
+                  inventoryItem {
+                    id
+                  }
                 }
               }
             }
@@ -182,23 +187,6 @@ export default async function handler(req, res) {
       }
     `;
 
-    const productInput = {
-      title,
-      descriptionHtml: description,
-      status: "ACTIVE",
-      variants: [
-        {
-          price: String(price),
-          inventoryQuantities: [
-            {
-              availableQuantity: Number(stock || 0),
-              locationId,
-            },
-          ],
-        },
-      ],
-    };
-
     const mediaInput = imageUrl
       ? [
           {
@@ -210,23 +198,172 @@ export default async function handler(req, res) {
       : [];
 
     const createResult = await shopifyFetch(productCreateMutation, {
-      input: productInput,
+      input: {
+        title,
+        descriptionHtml: description,
+        status: "ACTIVE",
+      },
       media: mediaInput,
     });
 
-    const payload = createResult?.data?.productCreate;
+    const createPayload = createResult?.data?.productCreate;
 
-    if (payload?.userErrors?.length > 0) {
+    if (createPayload?.userErrors?.length > 0) {
       return res.status(400).json({
         success: false,
         message: "Shopify từ chối tạo sản phẩm",
-        errors: payload.userErrors,
+        errors: createPayload.userErrors,
       });
     }
 
-    const product = payload.product;
+    let product = createPayload.product;
 
-    if (categoryHandle) {
+    const variantNode = product.variants?.edges?.[0]?.node;
+    const variantId = variantNode?.id;
+
+    const inventoryItemId = variantNode?.inventoryItem?.id;
+
+    if (inventoryItemId) {
+      const enableTrackingMutation = `
+    mutation InventoryItemUpdate($id: ID!, $input: InventoryItemInput!) {
+      inventoryItemUpdate(id: $id, input: $input) {
+        inventoryItem {
+          id
+          tracked
+        }
+        userErrors {
+          field
+          message
+        }
+      }
+    }
+  `;
+
+      const trackingResult = await shopifyFetch(enableTrackingMutation, {
+        id: inventoryItemId,
+        input: {
+          tracked: true,
+        },
+      });
+
+      console.log("trackingResult", JSON.stringify(trackingResult, null, 2));
+    }
+
+    // 3. Update price
+    if (variantId) {
+      const updateVariantMutation = `
+        mutation ProductVariantsBulkUpdate($productId: ID!, $variants: [ProductVariantsBulkInput!]!) {
+          productVariantsBulkUpdate(productId: $productId, variants: $variants) {
+            product {
+              id
+              priceRangeV2 {
+                minVariantPrice {
+                  amount
+                  currencyCode
+                }
+              }
+              variants(first: 10) {
+                edges {
+                  node {
+                    id
+                    title
+                    price
+                    inventoryQuantity
+                    inventoryItem {
+                      id
+                    }
+                  }
+                }
+              }
+            }
+            userErrors {
+              field
+              message
+            }
+          }
+        }
+      `;
+
+      const variantResult = await shopifyFetch(updateVariantMutation, {
+        productId: product.id,
+        variants: [
+          {
+            id: variantId,
+            price: String(price),
+          },
+        ],
+      });
+
+      const variantPayload = variantResult?.data?.productVariantsBulkUpdate;
+
+      if (variantPayload?.userErrors?.length > 0) {
+        return res.status(400).json({
+          success: false,
+          message: "Shopify từ chối cập nhật giá sản phẩm",
+          errors: variantPayload.userErrors,
+        });
+      }
+
+      product = {
+        ...product,
+        priceRangeV2: variantPayload.product.priceRangeV2,
+        variants: variantPayload.product.variants,
+      };
+    }
+
+    // 4. Update stock thật
+    const updatedVariantNode = product.variants?.edges?.[0]?.node;
+    const updatedInventoryItemId = updatedVariantNode?.inventoryItem?.id;
+    const currentInventory = updatedVariantNode?.inventoryQuantity || 0;
+    const targetStock = Number(stock || 0);
+    const delta = targetStock - currentInventory;
+
+    const inventorySetMutation = `
+  mutation InventorySetQuantities(
+    $input: InventorySetQuantitiesInput!,
+    $idempotencyKey: String!
+  ) {
+    inventorySetQuantities(input: $input)
+      @idempotent(key: $idempotencyKey) {
+      inventoryAdjustmentGroup {
+        createdAt
+        reason
+        changes {
+          name
+          delta
+          quantityAfterChange
+        }
+      }
+      userErrors {
+        field
+        message
+      }
+    }
+  }
+`;
+
+    if (updatedInventoryItemId && delta !== 0) {
+      const inventoryResult = await shopifyFetch(inventorySetMutation, {
+        input: {
+          name: "available",
+          reason: "correction",
+          quantities: [
+            {
+              inventoryItemId: updatedInventoryItemId, // 👈 dùng biến mới
+              locationId,
+              quantity: targetStock,
+              changeFromQuantity: currentInventory,
+            },
+          ],
+        },
+        idempotencyKey: `set-stock-${updatedInventoryItemId}-${Date.now()}`,
+      });
+    }
+
+    // 5. Add collection
+    let category = null;
+
+    if (collectionHandle) {
       const getCollectionQuery = `
         query GetCollection($handle: String!) {
           collectionByIdentifier(identifier: { handle: $handle }) {
@@ -238,7 +375,7 @@ export default async function handler(req, res) {
       `;
 
       const collectionResult = await shopifyFetch(getCollectionQuery, {
-        handle: categoryHandle,
+        handle: collectionHandle,
       });
 
       const collection = collectionResult?.data?.collectionByIdentifier;
@@ -260,12 +397,35 @@ export default async function handler(req, res) {
           }
         `;
 
-        await shopifyFetch(addToCollectionMutation, {
+        const addCollectionResult = await shopifyFetch(
+          addToCollectionMutation,
+          {
+            id: collection.id,
+            productIds: [product.id],
+          },
+        );
+
+        const addCollectionPayload =
+          addCollectionResult?.data?.collectionAddProducts;
+
+        if (addCollectionPayload?.userErrors?.length > 0) {
+          return res.status(400).json({
+            success: false,
+            message: "Shopify từ chối thêm sản phẩm vào collection",
+            errors: addCollectionPayload.userErrors,
+          });
+        }
+
+        category = {
           id: collection.id,
-          productIds: [product.id],
-        });
+          title: collection.title,
+          handle: collection.handle,
+        };
       }
     }
+
+    console.log("inventoryItemId:", updatedInventoryItemId);
+    console.log("locationId:", locationId);
 
     return res.status(200).json({
       success: true,
@@ -277,16 +437,24 @@ export default async function handler(req, res) {
         handle: product.handle,
         status: product.status,
         descriptionHtml: product.descriptionHtml,
+        category,
         image: product.featuredImage?.url || imageUrl || "",
         altText: product.featuredImage?.altText || "",
-        price: Number(product.priceRangeV2?.minVariantPrice?.amount || 0),
+        price: Number(
+          product.priceRangeV2?.minVariantPrice?.amount || price || 0,
+        ),
+        stock: targetStock,
         currencyCode: product.priceRangeV2?.minVariantPrice?.currencyCode || "",
         variants:
           product.variants?.edges?.map((item) => ({
             id: item.node.id,
             title: item.node.title,
             price: Number(item.node.price || 0),
-            inventoryQuantity: item.node.inventoryQuantity,
+            inventoryQuantity:
+              item.node.id === variantId
+                ? targetStock
+                : item.node.inventoryQuantity,
+            inventoryItemId: item.node.inventoryItem?.id,
           })) || [],
       },
     });

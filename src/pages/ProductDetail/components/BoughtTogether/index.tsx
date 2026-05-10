@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 import Checkbox from "@components/Checkbox";
-import { ProductImage } from "services/products/productApi";
 
 const BoughtTogether = ({
   listChecked,

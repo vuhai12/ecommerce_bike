@@ -1,30 +1,39 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Product } from "../../../../types/product.type";
+import { Product, ProductFormType } from "../../../../types/product.type";
 import ReactQuill from "react-quill";
 import ImgaeDefault from "@assets/image-default.jpg";
 import { X } from "lucide-react";
 
 const stripHtml = (html: string) => html.replace(/<[^>]*>/g, "").trim();
+const categoryValues = ["comfort", "light-trail", "full-suspension"] as const;
 
-const productSchema = z.object({
+const baseProductSchema = z.object({
   title: z.string().min(1, "Title is required"),
   price: z.coerce.number().min(1, "Price must > 0"),
   stock: z.coerce.number().min(0, "Stock must >= 0"),
-  categoryHandle: z.string().min(1, "Please select category"),
+  categoryHandle: z.preprocess(
+    (val) => (val === "" ? undefined : val),
+    z.enum(categoryValues, {
+      message: "Please select category",
+    }),
+  ),
   description: z
     .string()
     .refine((html) => stripHtml(html).length > 0, "Description is required"),
-  image: z
-    .instanceof(File, { message: "Image is required" })
-    .refine((file) => file.size <= 2 * 1024 * 1024, "Max 2MB")
-    .refine((file) => file.type.startsWith("image/"), "Only image allowed"),
+  image: z.instanceof(File).optional(),
 });
 
-type ProductFormInput = z.input<typeof productSchema>;
-type ProductFormData = z.output<typeof productSchema>;
+type ProductFormInput = z.input<typeof baseProductSchema>;
+type ProductFormData = z.output<typeof baseProductSchema>;
+
+const createProductSchema = (product: Product | null) =>
+  baseProductSchema.refine((data) => data.image || product?.image, {
+    message: "Image is required",
+    path: ["image"],
+  });
 
 const ProductForm = ({
   onSubmit,
@@ -32,14 +41,10 @@ const ProductForm = ({
   onCancel,
 }: {
   onCancel: () => void;
-  onSubmit: (productForm: {
-    title: string;
-    price: number;
-    stock: number;
-    categoryHandle: string;
-  }) => void;
+  onSubmit: (productForm: ProductFormType) => void;
   product: Product | null;
 }) => {
+  const productSchema = createProductSchema(product);
   const {
     register,
     handleSubmit,
@@ -47,6 +52,7 @@ const ProductForm = ({
     reset,
     setValue,
     watch,
+    trigger,
   } = useForm<ProductFormInput, any, ProductFormData>({
     resolver: zodResolver(productSchema),
     defaultValues: {
@@ -68,16 +74,20 @@ const ProductForm = ({
         description: product?.descriptionHtml || "",
       });
     }
+  }, [product]);
+
+  useEffect(() => {
     if (!file) {
       setPreview(product?.image || ImgaeDefault);
       return;
     }
 
     const objectUrl = URL.createObjectURL(file);
+
     setPreview(objectUrl);
 
     return () => URL.revokeObjectURL(objectUrl);
-  }, [product, file]);
+  }, [file]);
 
   const description = watch("description");
   const [preview, setPreview] = useState<string>("");

@@ -1,11 +1,15 @@
 // /api/export-csv.js
+
+import dotenv from "dotenv";
+
+dotenv.config();
+
 export default async function handler(req, res) {
   try {
     const SHOPIFY_STORE_DOMAIN = process.env.SHOPIFY_STORE_DOMAIN;
     const SHOPIFY_ADMIN_TOKEN = process.env.SHOPIFY_ADMIN_TOKEN;
     const SHOPIFY_API_VERSION = process.env.SHOPIFY_API_VERSION;
 
-    // 🎯 query lấy product
     const query = `
       query GetProducts($first: Int!) {
         products(first: $first) {
@@ -15,9 +19,26 @@ export default async function handler(req, res) {
               title
               handle
               descriptionHtml
+
+              category {
+                id
+                name
+                fullName
+              }
+
               featuredImage {
                 url
               }
+
+              collections(first: 1) {
+                edges {
+                  node {
+                    title
+                    handle
+                  }
+                }
+              }
+
               variants(first: 1) {
                 edges {
                   node {
@@ -42,42 +63,99 @@ export default async function handler(req, res) {
         },
         body: JSON.stringify({
           query,
-          variables: { first: 50 }, // chỉnh số lượng tùy bạn
+          variables: {
+            first: 50,
+          },
         }),
       },
     );
 
     const result = await shopifyRes.json();
 
+    if (result.errors) {
+      return res.status(500).json({
+        success: false,
+        message: "Shopify query error",
+        errors: result.errors,
+      });
+    }
+
     const rawProducts = result?.data?.products?.edges || [];
 
-    // 🎯 convert sang CSV
-    const header = "title,price,stock,description,image\n";
+    // =========================================
+    // CSV HEADER
+    // =========================================
+
+    const header =
+      "title,price,stock,description,image,collectionHandle,categoryId,categoryName\n";
+
+    // =========================================
+    // CSV ROWS
+    // =========================================
 
     const rows = rawProducts.map((item) => {
       const p = item.node;
 
       const title = p.title || "";
+
       const price = p.variants?.edges?.[0]?.node?.price || 0;
+
       const stock = p.variants?.edges?.[0]?.node?.inventoryQuantity || 0;
+
       const description = p.descriptionHtml || "";
+
       const image = p.featuredImage?.url || "";
 
-      // ❗ escape dấu " và dấu ,
+      const collectionHandle = p.collections?.edges?.[0]?.node?.handle || "";
+
+      const categoryId = p.category?.id || "";
+
+      const categoryName = p.category?.fullName || "";
+
+      // escape "
+      const safeTitle = `"${title.replace(/"/g, '""')}"`;
+
       const safeDescription = `"${description.replace(/"/g, '""')}"`;
 
-      return `"${title}",${price},${stock},${safeDescription},"${image}"`;
+      const safeImage = `"${image.replace(/"/g, '""')}"`;
+
+      const safeCollection = `"${collectionHandle.replace(/"/g, '""')}"`;
+
+      const safeCategoryId = `"${categoryId.replace(/"/g, '""')}"`;
+
+      const safeCategoryName = `"${categoryName.replace(/"/g, '""')}"`;
+
+      return [
+        safeTitle,
+        price,
+        stock,
+        safeDescription,
+        safeImage,
+        safeCollection,
+        safeCategoryId,
+        safeCategoryName,
+      ].join(",");
     });
+
+    // =========================================
+    // BUILD CSV
+    // =========================================
+
     const BOM = "\uFEFF";
+
     const csv = BOM + header + rows.join("\n");
 
-    // 🎯 trả file
+    // =========================================
+    // DOWNLOAD FILE
+    // =========================================
+
     res.setHeader("Content-Type", "text/csv; charset=utf-8");
+
     res.setHeader("Content-Disposition", "attachment; filename=products.csv");
 
-    res.status(200).send(csv);
+    return res.status(200).send(csv);
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: "Export CSV error",
       error: error.message,
