@@ -13,19 +13,15 @@ export default async function handler(req, res) {
   try {
     const {
       collectionHandle = "",
-
       // SEARCH
       search = "",
-
       // SORT
       tabKey = "best-seller",
-
       // PAGINATION
-      limit = 8,
+      limit = 6,
       pageCurrent = 1,
       sortBy,
       sortOrder,
-
       // PRICE FILTER
       minPrice,
       maxPrice,
@@ -390,24 +386,16 @@ export default async function handler(req, res) {
 
     return res.status(200).json({
       success: true,
-
       search,
-
       collectionHandle,
-
       totalProducts,
-
       totalPages,
-
       currentPage: Number(pageCurrent),
-
       limit: Number(limit),
-
       products: paginatedProducts,
     });
   } catch (error) {
     console.log(error);
-
     return res.status(500).json({
       success: false,
       message: "Server error",

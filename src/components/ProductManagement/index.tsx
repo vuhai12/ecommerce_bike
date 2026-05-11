@@ -19,10 +19,15 @@ import {
 import ProductSkeletonTable from "@components/ProductSkeletonTable";
 import { importCsvApi } from "../../services/products/productApi";
 import { useDebound } from "../../customHooks/useDebound";
+import Pagination from "@components/Pagination";
 
 const ProductManagement = () => {
   const dispatch = useAppDispatch();
-  const { list, loading, error } = useAppSelector((state) => state.products);
+  const { list, loading, error, totalProducts } = useAppSelector(
+    (state) => state.products,
+  );
+
+  const [pageCurrent, setPageCurrent] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
 
   const [searchParam, setSearchPram] = useState("");
@@ -32,8 +37,8 @@ const ProductManagement = () => {
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
 
   useEffect(() => {
-    dispatch(fetchProducts({ search: searchParam }));
-  }, [searchDebond]);
+    dispatch(fetchProducts({ search: searchParam, pageCurrent, limit: 5 }));
+  }, [searchDebond, pageCurrent]);
 
   const onSubmit = async (dataProduct: ProductFormType) => {
     if (editingProduct) {
@@ -233,6 +238,12 @@ const ProductManagement = () => {
           </tbody>
         </table>
       </div>
+      <Pagination
+        limit={5}
+        totalItems={totalProducts || 0}
+        pageCurrent={pageCurrent}
+        setPageCurrent={setPageCurrent}
+      />
       {isOpen && (
         <Popup onCancel={onCancel}>
           <ProductForm

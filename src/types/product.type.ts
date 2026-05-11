@@ -29,6 +29,7 @@ export interface Product {
 export interface ProductResponse {
   success: boolean;
   products: Product[];
+  totalProducts: number | null;
 }
 
 export interface ProductUpateResponse {

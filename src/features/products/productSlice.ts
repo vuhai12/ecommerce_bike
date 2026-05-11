@@ -12,12 +12,14 @@ interface ProductState {
   list: Product[];
   loading: boolean;
   error: string | null;
+  totalProducts: number | null;
 }
 
 const initialState: ProductState = {
   list: [],
   loading: false,
   error: null,
+  totalProducts: null,
 };
 
 interface FetchProductsPayload {
@@ -29,17 +31,19 @@ interface FetchProductsPayload {
   search?: string;
   sortBy?: string;
   sortOrder?: string;
+  pageCurrent?: number;
+  limit?: number;
 }
 
 export const fetchProducts = createAsyncThunk<
-  Product[], // kiểu dữ liệu trả về khi success
+  { listProducts: Product[]; totalProducts: number | null }, // kiểu dữ liệu trả về khi success
   FetchProductsPayload, // kiểu tham số truyền vào thunk
   { rejectValue: string } // kiểu lỗi custom
 >("products/fetchProducts", async (payload: FetchProductsPayload, thunkAPI) => {
   try {
     const data = await getProductsApi(payload);
     console.log("data =", data);
-    return data.products;
+    return { listProducts: data.products, totalProducts: data.totalProducts };
   } catch (error: any) {
     return thunkAPI.rejectWithValue(
       error?.message || "Lấy danh sách sản phẩm thất bại",
@@ -104,10 +108,16 @@ const productSlice = createSlice({
       })
       .addCase(
         fetchProducts.fulfilled,
-        (state, action: PayloadAction<Product[]>) => {
-          console.log("action.payload", action.payload);
+        (
+          state,
+          action: PayloadAction<{
+            listProducts: Product[];
+            totalProducts: number | null;
+          }>,
+        ) => {
           state.loading = false;
-          state.list = action.payload;
+          state.list = action.payload.listProducts;
+          state.totalProducts = action.payload.totalProducts;
         },
       )
       .addCase(fetchProducts.rejected, (state, action) => {

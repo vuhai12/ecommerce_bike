@@ -15,7 +15,7 @@ const ProductItem = ({
 }: {
   handle: string;
   title: string;
-  price: string;
+  price: number;
   averageRating: number;
   image: string;
   reviewCount: number;

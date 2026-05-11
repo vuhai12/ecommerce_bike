@@ -35,13 +35,11 @@ const ProductList = () => {
   const [pageCurrent, setPageCurrent] = useState(1);
   const [isShowFilterBar, setIsShowFilterBar] = useState(false);
 
-  const limit = 6;
+  const limit = 2;
 
   /* ================= SORT ================= */
 
   /* ================= PAGINATION ================= */
-
-  const offset = (pageCurrent - 1) * limit;
 
   useEffect(() => {
     setPageCurrent(1);
@@ -55,7 +53,9 @@ const ProductList = () => {
   }, [isShowFilterBar]);
 
   const dispatch = useAppDispatch();
-  const { list, loading, error } = useAppSelector((state) => state.products);
+  const { list, loading, error, totalProducts } = useAppSelector(
+    (state) => state.products,
+  );
 
   const fetchProductsByTab = () => {
     dispatch(
@@ -64,13 +64,15 @@ const ProductList = () => {
         tabKey: sortValue,
         minPrice: priceRange[0],
         maxPrice: priceRange[1],
+        pageCurrent,
+        limit,
       }),
     );
   };
 
   useEffect(() => {
     fetchProductsByTab();
-  }, [sortValue, selectedCategory]);
+  }, [sortValue, selectedCategory, pageCurrent]);
 
   const handlePriceChangeComplete = (range: [number, number]) => {
     setPriceRange(range);
@@ -174,14 +176,14 @@ const ProductList = () => {
                   </motion.div>
 
                   {/* Pagination */}
-                  {/* <div className="mt-12 flex justify-center">
+                  <div className="mt-12 flex justify-center">
                     <Pagination
                       limit={limit}
-                      totalItems={sortedProducts.length}
+                      totalItems={totalProducts || 0}
                       pageCurrent={pageCurrent}
                       setPageCurrent={setPageCurrent}
                     />
-                  </div> */}
+                  </div>
                 </>
               )}
             </div>
