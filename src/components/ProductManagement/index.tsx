@@ -5,17 +5,11 @@ import {
   fetchProducts,
   updateProduct,
 } from "../../features/products/productSlice";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Popup from "@components/Popup";
 import ProductForm from "./components/ProductForm";
 import { Product, ProductFormType } from "../../types/product.type";
-import {
-  Pencil,
-  Trash2,
-  Plus,
-  ArrowUpDown,
-  ChevronsUpDown,
-} from "lucide-react";
+import { Pencil, Trash2, Plus, ChevronsUpDown } from "lucide-react";
 import ProductSkeletonTable from "@components/ProductSkeletonTable";
 import { importCsvApi } from "../../services/products/productApi";
 import { useDebound } from "../../customHooks/useDebound";
@@ -53,8 +47,6 @@ const ProductManagement = () => {
     onCancel();
   };
 
-  console.log("list", list);
-
   const handleEdit = (product: Product) => {
     setEditingProduct(product);
     setIsOpen(true);
@@ -64,8 +56,6 @@ const ProductManagement = () => {
     setIsOpen(false);
     setEditingProduct(null);
   };
-
-  console.log("list.len", list.length);
 
   const handleDelete = async (id: string) => {
     await dispatch(deleteProduct(id));
@@ -197,7 +187,7 @@ const ProductManagement = () => {
                     className={`border-gray-200 ${index + 1 == list.length ? "border-none" : "border-b"}`}
                   >
                     <td className="text-center py-6 text-gray-500">
-                      {index + 1}
+                      {(index + 1) * pageCurrent}
                     </td>
                     <td className="text-center py-6 text-gray-500 flex items-center justify-center">
                       <img

@@ -56,8 +56,6 @@ const Checkout = () => {
     );
   }
 
-  console.log("cartDatassssssssssss", cartData);
-
   const isCartEmpty =
     !cartData || !cartData.lines || cartData.lines.nodes.length === 0;
 

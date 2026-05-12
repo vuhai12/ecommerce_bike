@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import Checkbox from "@components/Checkbox";
 
 const BoughtTogether = ({
@@ -33,7 +31,7 @@ const BoughtTogether = ({
           </p>
         )}
       </div>
-      <div className="grid gap-[30px] lg:grid-cols-5 md:grid-cols-4 grid-cols-1">
+      <div className="grid gap-[30px] lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-2 grid-cols-1">
         {accessories?.map((item, _) => {
           return (
             <div

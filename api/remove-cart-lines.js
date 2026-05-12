@@ -25,7 +25,7 @@ export default async function handler(req, res) {
     }
 
     const SHOPIFY_STORE_DOMAIN = process.env.SHOPIFY_STORE_DOMAIN;
-    const SHOPIFY_STOREFRONT_TOKEN = process.env.SHOPIFY_ADMIN_TOKEN;
+    const SHOPIFY_STOREFRONT_TOKEN = process.env.SHOPIFY_STOREFRONT_TOKEN;
     const SHOPIFY_API_VERSION = process.env.SHOPIFY_API_VERSION;
 
     const endpoint = `https://${SHOPIFY_STORE_DOMAIN}/api/${SHOPIFY_API_VERSION}/graphql.json`;

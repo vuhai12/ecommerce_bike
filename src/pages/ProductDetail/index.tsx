@@ -213,7 +213,6 @@ const ProductDetail = () => {
         />
         <Section3 />
         <Section4 description={data?.descriptionHtml} />
-        {/* <Section5 /> */}
         <ReviewSection productHandle={handle || ""} />
       </div>
 
