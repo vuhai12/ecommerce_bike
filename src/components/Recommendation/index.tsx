@@ -82,6 +82,8 @@ const Recommendation = () => {
 
   console.log("lits", list);
 
+  console.log("current", current);
+
   return (
     <div className="relative flex flex-col gap-[20px] ">
       <div
@@ -117,8 +119,25 @@ const Recommendation = () => {
           </div>
         )}
       </div>
-      <div className="flex gap-[20px] items-center justify-center">
-        <div
+      <div className="flex  items-center justify-center mt-[20px] ">
+        {list.length > 0 &&
+          list.map((_, index) => {
+            return (
+              <div
+                className="flex justify-center items-center relative w-8 h-8 cursor-pointer"
+                key={index}
+                onClick={() => setCurrent(index)}
+              >
+                <div
+                  className={`w-2 h-2 rounded-[50%]   ${index === current ? "bg-[#14c9c9] " : "bg-gray-300"} cursor-pointer`}
+                />
+                <div
+                  className={`w-8 h-8 absolute  rounded-[50%] ${index === current ? "border-[#14c9c9] border-[2px] " : ""}`}
+                />
+              </div>
+            );
+          })}
+        {/* <div
           onClick={() => handlePreNext("pre")}
           className=" z-50 bg-white left-0  w-[36px] h-[36px] rounded-[50%] border-[1px] border-[#EAECF0] flex items-center justify-center"
         >
@@ -129,7 +148,7 @@ const Recommendation = () => {
           className="w-[36px] bg-white right-0  h-[36px] rounded-[50%] border-[1px] border-[#EAECF0] flex items-center justify-center"
         >
           <ArrowRight className="w-[20px] h-[20px] cursor-pointer" />
-        </div>
+        </div> */}
       </div>
     </div>
   );
