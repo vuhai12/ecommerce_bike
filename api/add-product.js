@@ -245,8 +245,6 @@ export default async function handler(req, res) {
           tracked: true,
         },
       });
-
-      console.log("trackingResult", JSON.stringify(trackingResult, null, 2));
     }
 
     // 3. Update price
