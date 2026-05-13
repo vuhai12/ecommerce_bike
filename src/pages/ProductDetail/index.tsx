@@ -41,13 +41,9 @@ const ProductDetail = () => {
   const [imagePicked, setImagePicked] = useState<number>(0);
   const [listChecked, setListChecked] = useState<string[]>([]);
   const navigate = useNavigate();
-  const { data, loading, error } = useAppSelector(
-    (state) => state.productDetail,
-  );
+  const { data, loading } = useAppSelector((state) => state.productDetail);
 
-  const { summary, error: reviewError } = useAppSelector(
-    (state) => state.reviews,
-  );
+  const { summary } = useAppSelector((state) => state.reviews);
 
   useEffect(() => {
     if (!handle) return;

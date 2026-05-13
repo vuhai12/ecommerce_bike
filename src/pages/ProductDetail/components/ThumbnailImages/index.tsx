@@ -7,38 +7,41 @@ const ThumbnailImages = ({
   imagePicked,
   setImagePiked,
 }: {
-  listImage: { url: string }[] | undefined;
-  imagePicked: number | undefined;
+  listImage: { url: string }[];
+  imagePicked: number;
   setImagePiked: (val: number) => void;
 }) => {
   const [isLike, setIsLike] = useState(false);
   return (
     <div className="flex md:gap-[24px] md:flex-row h-full flex-col-reverse gap-[20px] ">
       <div className="flex flex-row gap-[10px] h-full flex-wrap md:flex-col md:gap-[16px] md:w-[60px]">
-        {listImage?.map((item, key: number) => {
-          return (
-            <div
-              className={classNames(
-                "rounded-[10px] flex-1  overflow-hidden cursor-pointer md:w-auto w-1/4",
-                key === imagePicked
-                  ? "border-[2px] border-[#14C9C9]"
-                  : "border-[1px] border-[#EAECF0]",
-              )}
-              onClick={() => setImagePiked(key)}
-            >
-              <img
-                src={item.url}
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-            </div>
-          );
-        })}
+        {listImage.length > 0 &&
+          listImage?.map((item, key: number) => {
+            return (
+              <div
+                className={classNames(
+                  "rounded-[10px] flex-1  overflow-hidden cursor-pointer md:w-auto w-1/4",
+                  key === imagePicked
+                    ? "border-[2px] border-[#14C9C9]"
+                    : "border-[1px] border-[#EAECF0]",
+                )}
+                onClick={() => setImagePiked(key)}
+              >
+                <img
+                  src={item.url}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+            );
+          })}
       </div>
       <div className="px-[30px] h-[450px] md:h-auto pt-[30px] border-[#EAECF0] rounded-[12px] border-[1px] relative md:flex-1">
         <div
           className=" bg-contain bg-no-repeat bg-center w-full h-full"
-          style={{ backgroundImage: `url(${listImage?.[imagePicked]?.url})` }}
+          style={{
+            backgroundImage: `url(${listImage.length > 0 && listImage[imagePicked]?.url})`,
+          }}
         >
           <div
             onClick={() => setIsLike(!isLike)}

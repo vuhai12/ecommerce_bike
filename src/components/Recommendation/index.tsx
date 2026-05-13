@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
 import ProductItem from "@components/Ui/ProductItem";
-import { ArrowLeft, ArrowRight } from "lucide-react";
 import { fetchProducts } from "../../features/products/productSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 
@@ -39,7 +38,7 @@ const Recommendation = () => {
   }, []);
 
   const dispatch = useAppDispatch();
-  const { list, loading, error } = useAppSelector((state) => state.products);
+  const { list } = useAppSelector((state) => state.products);
 
   useEffect(() => {
     dispatch(fetchProducts({}));
@@ -70,19 +69,6 @@ const Recommendation = () => {
   const sliderWidth = isMdUp ? maxWidth : maxWidthMd;
 
   const sliderWidthItem = isMdUp ? itemWidth : containerWidth;
-  const handlePreNext = (flag: string) => {
-    if (flag == "next") {
-      setCurrent((pre) => (pre - 1 + list.length) % list.length);
-    }
-
-    if (flag == "pre") {
-      setCurrent((pre) => (pre + 1) % list.length);
-    }
-  };
-
-  console.log("lits", list);
-
-  console.log("current", current);
 
   return (
     <div className="relative flex flex-col gap-[20px] ">

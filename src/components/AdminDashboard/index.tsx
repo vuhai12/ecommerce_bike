@@ -1,4 +1,4 @@
-import { Links, Outlet, Link, NavLink } from "react-router-dom";
+import { Outlet, Link, NavLink } from "react-router-dom";
 import logo from "@assets/Footer/logo.svg";
 import { Menu, Box, User } from "lucide-react";
 

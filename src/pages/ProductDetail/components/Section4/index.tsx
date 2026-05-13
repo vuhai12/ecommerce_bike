@@ -1,6 +1,3 @@
-import classNames from "classnames";
-import { useState } from "react";
-
 const Section4 = ({ description }: { description: string | undefined }) => {
   return (
     <div className="flex gap-[32px] flex-col container mt-[50px]">

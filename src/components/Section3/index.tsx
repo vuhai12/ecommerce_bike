@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import ProductItem from "@components/Ui/ProductItem";
 import classNames from "classnames";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { fetchProducts } from "../../features/products/productSlice";
@@ -24,11 +24,9 @@ const Section3 = () => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
-  const {
-    list: activeProducts,
-    error,
-    loading,
-  } = useAppSelector((state) => state.products);
+  const { list: activeProducts, loading } = useAppSelector(
+    (state) => state.products,
+  );
 
   const fetchProductsByTab = () => {
     dispatch(fetchProducts({ collectionHandle: "comfort", tabKey: activeTab }));

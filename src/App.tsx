@@ -11,8 +11,6 @@ import ProductManagement from "@components/ProductManagement";
 
 const HomePage = lazy(() => import("@pages/HomePage"));
 const ProductList = lazy(() => import("@pages/ProductList"));
-const AddressList = lazy(() => import("@pages/AddressList"));
-const PaymentMethods = lazy(() => import("@pages/PaymentMethods"));
 const Login = lazy(() => import("@pages/Login"));
 const Register = lazy(() => import("@pages/Register"));
 const BlogPage = lazy(() => import("@pages/BlogPage"));
@@ -31,8 +29,6 @@ function App() {
           <Route path="/blog/:id" element={<BlogPage />} />
           <Route path="/blog-list" element={<BlogList />} />
           <Route path="/cart" element={<Checkout />} />
-          <Route path="/checkout/address" element={<AddressList />} />
-          <Route path="/checkout/payment" element={<PaymentMethods />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/about-us" element={<AboutUs />} />

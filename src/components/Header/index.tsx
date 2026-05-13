@@ -10,7 +10,6 @@ import classNames from "classnames";
 import { dataMenu } from "./dataMenu";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { getCartThunk } from "../../features/cart/cartSlice";
-import { loginApi } from "../../services/auth/loginApi";
 
 const Header = () => {
   const { i18n, t } = useTranslation();
@@ -28,11 +27,7 @@ const Header = () => {
 
   const dispatch = useAppDispatch();
 
-  const {
-    cart: cartData,
-    loading,
-    error,
-  } = useAppSelector((state) => state.cart);
+  const { cart: cartData } = useAppSelector((state) => state.cart);
 
   useEffect(() => {
     const cartId = localStorage.getItem("shopify_cart_id");

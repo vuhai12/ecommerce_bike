@@ -17,7 +17,7 @@ import Pagination from "@components/Pagination";
 
 const ProductManagement = () => {
   const dispatch = useAppDispatch();
-  const { list, loading, error, totalProducts } = useAppSelector(
+  const { list, loading, totalProducts } = useAppSelector(
     (state) => state.products,
   );
 

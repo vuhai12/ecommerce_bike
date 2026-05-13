@@ -173,11 +173,11 @@ const cartSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(updateCartThunk.fulfilled, (state, action) => {
+      .addCase(updateCartThunk.fulfilled, (state, _) => {
         state.loading = false;
         state.error = null;
       })
-      .addCase(updateCartThunk.rejected, (state, action) => {
+      .addCase(updateCartThunk.rejected, (state, _) => {
         state.loading = false;
       })
 

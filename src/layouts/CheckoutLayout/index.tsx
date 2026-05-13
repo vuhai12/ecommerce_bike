@@ -1,4 +1,3 @@
-import OrderSummary from "@components/OrderSummary";
 import CheckoutSteps from "@pages/Checkout/components/CheckoutSteps";
 import ProductLayout from "../ProductLayout";
 import { ReactNode } from "react";
@@ -11,9 +10,7 @@ const CheckoutLayout = ({ children }: { children: ReactNode }) => {
           <CheckoutSteps />
           {children}
         </div>
-        <div className="flex-1">
-          <OrderSummary />
-        </div>
+        <div className="flex-1">{/* <OrderSummary /> */}</div>
       </div>
     </ProductLayout>
   );

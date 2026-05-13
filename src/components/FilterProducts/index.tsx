@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronDown, ChevronUp, X } from "lucide-react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import RangeSlide from "@components/RangeSlider";
 import { motion, AnimatePresence } from "framer-motion";
 import Radio from "@components/Radio";

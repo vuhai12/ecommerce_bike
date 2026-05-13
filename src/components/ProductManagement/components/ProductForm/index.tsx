@@ -52,7 +52,6 @@ const ProductForm = ({
     reset,
     setValue,
     watch,
-    trigger,
   } = useForm<ProductFormInput, any, ProductFormData>({
     resolver: zodResolver(productSchema),
     defaultValues: {
